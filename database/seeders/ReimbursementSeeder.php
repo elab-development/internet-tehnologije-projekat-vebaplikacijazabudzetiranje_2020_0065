@@ -13,6 +13,6 @@ class ReimbursementSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\Reimbursement::factory(5)->create();
+        Reimbursement::factory(5)->create();
     }
 }
