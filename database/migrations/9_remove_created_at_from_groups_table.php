@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('reimbursements', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::table('groups', function (Blueprint $table) {
+            $table->dropColumn('created_at');
         });
     }
 
@@ -22,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('reimbursements');
+        Schema::table('groups', function (Blueprint $table) {
+            $table->timestamp('created_at')->nullable();
+        });
     }
 };

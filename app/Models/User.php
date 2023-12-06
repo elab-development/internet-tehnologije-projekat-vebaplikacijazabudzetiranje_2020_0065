@@ -9,6 +9,10 @@ class User extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name', 'email', 'password', 'role'
+    ];
+
     public function expenses() {
         return $this->hasMany(Expense::class);
     }
