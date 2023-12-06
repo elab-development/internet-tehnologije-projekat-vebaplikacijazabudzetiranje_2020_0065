@@ -12,7 +12,8 @@ class ExpenseController extends Controller
      */
     public function index()
     {
-        //
+        $expenses = Expense::all();
+        return response()->json($expenses, 200);
     }
 
     /**
@@ -28,7 +29,8 @@ class ExpenseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $expense = Expense::create($request->all());
+        return response()->json($expense, 201);
     }
 
     /**
@@ -36,7 +38,8 @@ class ExpenseController extends Controller
      */
     public function show(Expense $expense)
     {
-        //
+        $expense = Expense::find($id);
+        return response()->json($expense, 200);
     }
 
     /**
@@ -52,7 +55,13 @@ class ExpenseController extends Controller
      */
     public function update(Request $request, Expense $expense)
     {
-        //
+         $expense = Expense::find($id);
+          if (!$expense) {
+             return response()->json(['message' => 'Trošak nije pronađen.'], 404);
+    }
+
+         $expense->update($request->all());
+         return response()->json($expense, 200);
     }
 
     /**
@@ -60,6 +69,12 @@ class ExpenseController extends Controller
      */
     public function destroy(Expense $expense)
     {
-        //
+        $expense = Expense::find($id);
+        if (!$expense) {
+            return response()->json(['message' => 'Trošak nije pronađen.'], 404);
+        }
+
+        $expense->delete();
+        return response()->json(['message' => 'Trošak uspešno obrisan.'], 200);
     }
 }

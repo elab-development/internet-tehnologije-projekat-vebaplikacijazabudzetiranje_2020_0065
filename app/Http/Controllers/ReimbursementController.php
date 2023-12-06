@@ -62,4 +62,9 @@ class ReimbursementController extends Controller
     {
         //
     }
+    public function showUserReimbursements($userId)
+    {
+        $userReimbursements = Reimbursement::where('user_id', $userId)->get();
+        return response()->json($userReimbursements, 200);
+    }
 }

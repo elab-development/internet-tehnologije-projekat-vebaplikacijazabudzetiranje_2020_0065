@@ -5,11 +5,13 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 
 
-Route::apiResource('expenses', 'ExpenseController')->except(['create', 'edit']);
-Route::get('users', 'UserController@index');
-Route::post('add-expense', 'ExpenseController@store');
-Route::get('user-reimbursements/{userId}', 'ReimbursementController@showUserReimbursements');
-Route::delete('delete-expense/{id}', 'ExpenseController@destroy');
+Route::apiResource('/expenses', 'ExpenseController')->except(['create', 'edit']);
+Route::get('/users', 'UserController@index');
+Route::post('/add-expense', 'ExpenseController@store');
+Route::get('/user-reimbursements/{userId}', 'ReimbursementController@showUserReimbursements');
+Route::delete('/delete-expense/{id}', 'ExpenseController@destroy');
+
+Route::post('/upload', 'UploadController@upload');
 
 
 
