@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('groups', function (Blueprint $table) {
-            $table->dropColumn('created_at');
+            $table->string('group_name')->after('id');
+            $table->dropColumn('name');
         });
     }
 
@@ -22,7 +23,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('groups', function (Blueprint $table) {
-            $table->timestamp('created_at')->nullable();
+            $table->string('name')->after('id');
+            $table->dropColumn('group_name');
         });
     }
 };

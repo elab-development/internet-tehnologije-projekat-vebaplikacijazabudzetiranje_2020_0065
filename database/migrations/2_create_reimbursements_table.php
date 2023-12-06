@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('reimbursements', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
             $table->decimal('amount', 10, 2);
             $table->text('description')->nullable();
             $table->timestamps();
@@ -26,5 +25,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('reimbursements');
+        
     }
 };
