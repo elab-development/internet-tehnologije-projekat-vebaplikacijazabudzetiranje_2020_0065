@@ -3,15 +3,20 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ExpenseController;
+use App\Http\Controllers\ReimbursementController;
 
 
-Route::apiResource('expenses', 'ExpenseController')->except(['create', 'edit']);
-Route::get('users', 'UserController@index');
-Route::post('add-expense', 'ExpenseController@store');
-Route::get('user-reimbursements/{userId}', 'ReimbursementController@showUserReimbursements');
-Route::delete('delete-expense/{id}', 'ExpenseController@destroy');
+Route::resource('/expenses', ExpenseController::class)->only(['index']);
+Route::resource('/users', UserController::class)->only(['index']);
+Route::delete('/expenses/{id}', [ExpenseController::class, 'destroy']);
+Route::post('/expenses', [ExpenseController::class, 'store']);
+Route::get('/users/{id}/reimbursements', [UserController::class, 'showReimbursements']);
+
 
 Route::post('/upload', 'UploadController@upload');
+Route::get('/export', 'ExportController@exportToCSV');
+
 
 
 

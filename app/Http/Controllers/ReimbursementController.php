@@ -7,17 +7,21 @@ use Illuminate\Http\Request;
 
 class ReimbursementController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+
+    public function index($userId)
     {
-        //
+
+        $user = User::findOrFail($userId);
+        
+       
+        if ($user->reimbursements()->exists()) {
+            $reimbursements = $user->reimbursements()->get();
+            return response()->json($reimbursements);
+        }
+        
+        return response()->json(['message' => 'Korisnik nema reimbursements.'], 404);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         //
@@ -36,7 +40,7 @@ class ReimbursementController extends Controller
      */
     public function show(Reimbursement $reimbursement)
     {
-        //
+        
     }
 
     /**
@@ -62,9 +66,5 @@ class ReimbursementController extends Controller
     {
         //
     }
-    public function showUserReimbursements($userId)
-    {
-        $userReimbursements = Reimbursement::where('user_id', $userId)->get();
-        return response()->json($userReimbursements, 200);
-    }
+
 }
