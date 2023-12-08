@@ -4,4 +4,4 @@
     <button type="submit">Import CSV</button>
 </form> -->
 
-<a href="{{ route('export') }}">Export podataka u .csv formatu</a>
+<a href="{{ route('export') }}">Export data in .csv format</a>

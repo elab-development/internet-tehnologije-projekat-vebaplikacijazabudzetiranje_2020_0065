@@ -18,7 +18,7 @@ class UserController extends Controller
         $users = User::all();
         return UserResource::collection($users);
     } catch (\Exception $e) {
-        return response()->json(['message' => 'Došlo je do greške prilikom prikazivanja korisnika.', 'error' => $e->getMessage()], 500);
+        return response()->json(['message' => 'Error occured while trying to display users.', 'error' => $e->getMessage()], 500);
     }
     }
 
@@ -77,12 +77,12 @@ class UserController extends Controller
         $reimbursements = Reimbursement::where('user_id', $id)->get();
         
         if($reimbursements->isEmpty()) {
-            return response()->json(['message' => 'Nema refundacija za traženog korisnika.'], 404);
+            return response()->json(['message' => 'There are no reimbursements found for that user.'], 404);
         }
 
         return response()->json(['reimbursements' => $reimbursements], 200);
     } catch (\Exception $e) {
-        return response()->json(['message' => 'Došlo je do greške.', 'error' => $e->getMessage()], 500);
+        return response()->json(['message' => 'Error occured.', 'error' => $e->getMessage()], 500);
     }
 }
 }

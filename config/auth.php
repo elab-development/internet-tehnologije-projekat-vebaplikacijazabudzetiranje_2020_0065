@@ -42,6 +42,15 @@ return [
         ],
     ],
 
+//     'guards' => [ //ovo se mozda bude brisalo
+//         'api' => [
+//             'driver' => 'sanctum',
+//             'provider' => 'users',
+//             'hash' => false,
+//         ],
+//    ],
+   
+
     /*
     |--------------------------------------------------------------------------
     | User Providers

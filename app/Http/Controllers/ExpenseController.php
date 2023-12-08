@@ -19,7 +19,7 @@ class ExpenseController extends Controller
         $expenses = Expense::all();
         return ExpenseResource::collection($expenses);
     } catch (\Exception $e) {
-        return response()->json(['message' => 'Došlo je do greške prilikom prikazivanja troškova.', 'error' => $e->getMessage()], 500);
+        return response()->json(['message' => 'Error occured while trying to display expenses.', 'error' => $e->getMessage()], 500);
     }
 }
 
@@ -47,11 +47,11 @@ class ExpenseController extends Controller
     
             $expense = Expense::create($validatedData);
     
-            return response()->json(['message' => 'Trošak je uspešno kreiran', 'expense' => $expense], 201);
+            return response()->json(['message' => 'Expense created succesfully', 'expense' => $expense], 201);
         } catch (\Illuminate\Validation\ValidationException $e) {
-            return response()->json(['message' => 'Došlo je do greške prilikom validacije.', 'errors' => $e->errors()], 422);
+            return response()->json(['message' => 'Error occured while validating.', 'errors' => $e->errors()], 422);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Došlo je do greške prilikom kreiranja troška.', 'error' => $e->getMessage()], 500);
+            return response()->json(['message' => 'Error occured while creating expense.', 'error' => $e->getMessage()], 500);
         }
     }
 
@@ -78,7 +78,7 @@ class ExpenseController extends Controller
     {
          $expense = Expense::find($id);
           if (!$expense) {
-             return response()->json(['message' => 'Trošak nije pronađen.'], 404);
+             return response()->json(['message' => 'Expense not found.'], 404);
     }
 
          $expense->update($request->all());
@@ -93,9 +93,9 @@ class ExpenseController extends Controller
         $expense = Expense::findOrFail($id);
 
         if ($expense->delete()) {
-            return response()->json(['message' => 'Trošak je uspešno obrisan'], 200);
+            return response()->json(['message' => 'Expense deleted succesfully'], 200);
         } else {
-            return response()->json(['message' => 'Nije moguće obrisati trošak'], 500);
+            return response()->json(['message' => 'Error occured, impossible to delete expense'], 500);
         }
     }
 
@@ -109,10 +109,10 @@ class ExpenseController extends Controller
         ];
     
         $handle = fopen('php://output', 'w');
-        fputcsv($handle, ['ID', 'Amount', 'Description', 'Transaction Date']); // Add more headers as needed
+        fputcsv($handle, ['ID', 'Amount', 'Description', 'Transaction Date']); 
     
         foreach ($expenses as $expense) {
-            fputcsv($handle, [$expense->id, $expense->amount, $expense->description, $expense->transaction_date]); // Add more fields as needed
+            fputcsv($handle, [$expense->id, $expense->amount, $expense->description, $expense->transaction_date]); 
         }
     
         fclose($handle);
