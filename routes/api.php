@@ -13,9 +13,11 @@ Route::delete('/expenses/{id}', [ExpenseController::class, 'destroy']);
 Route::post('/expenses', [ExpenseController::class, 'store']);
 Route::get('/users/{id}/reimbursements', [UserController::class, 'showReimbursements']);
 
+Route::get('/export/expenses', [ExpenseController::class, 'exportCSV']);
+
 
 Route::post('/upload', 'UploadController@upload');
-Route::get('/export', 'ExportController@exportToCSV');
+
 
 
 

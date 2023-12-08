@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Validator;
+use League\Csv\Writer;
 use App\Models\Expense;
 use Illuminate\Http\Request;
 use App\Http\Resources\ExpenseResource;
@@ -96,4 +98,62 @@ class ExpenseController extends Controller
             return response()->json(['message' => 'Nije moguće obrisati trošak'], 500);
         }
     }
+
+    public function export()
+    {
+        $expenses = Expense::all();
+        $csvFileName = 'expenses.csv';
+        $headers = [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename="' . $csvFileName . '"',
+        ];
+    
+        $handle = fopen('php://output', 'w');
+        fputcsv($handle, ['ID', 'Amount', 'Description', 'Transaction Date']); // Add more headers as needed
+    
+        foreach ($expenses as $expense) {
+            fputcsv($handle, [$expense->id, $expense->amount, $expense->description, $expense->transaction_date]); // Add more fields as needed
+        }
+    
+        fclose($handle);
+    
+        return response()->make('', 200, $headers);
+    }
+
+
+    
+    public function import(Request $request)
+{
+    $validator = Validator::make($request->all(), [
+        'file' => 'required|mimes:csv,txt',
+    ]);
+
+    if ($validator->fails()) {
+        return redirect()->back()->withErrors($validator);
+    }
+
+    $file = $request->file('file');
+    $fileContents = file($file->getPathname());
+
+    foreach ($fileContents as $line) {
+        $data = str_getcsv($line);
+
+        Expense::create([
+            'name' => $data[0],
+            'amount' => $data[1],
+            'description' => $data[2],
+            'transaction_date' => $data[3],
+            
+        ]);
+    }
+
+    return redirect()->back()->with('success', 'CSV file imported successfully.');
+}
+
+public function showImportForm()
+{
+    return view('import'); 
+}
+
+   
 }
