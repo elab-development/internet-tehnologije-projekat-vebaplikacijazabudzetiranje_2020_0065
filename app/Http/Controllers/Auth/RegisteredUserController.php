@@ -13,11 +13,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 
-
 class RegisteredUserController extends Controller
 {
-    protected $model = \App\Models\User::class;
-    
     /**
      * Display the registration view.
      */
