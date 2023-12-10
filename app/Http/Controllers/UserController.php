@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Reimbursement;
 use Illuminate\Http\Request;
 use App\Http\Resources\UserResource;
+use Illuminate\Support\Facades\Cache;
 
 class UserController extends Controller
 {
@@ -35,8 +36,50 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $user = new User();
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->password = bcrypt($request->input('password'));
+        $user->save();
+
+        $this->cacheLatestUser($user);
+
+        return response()->json(['message' => 'User successfully created']);
         
     }
+
+    private function cacheLatestUser(User $user)
+    {
+        Cache::put('latest_user', $user, now()->addMinutes(10));
+    }
+
+    public function showLatestUser()
+    {
+        $latestUser = $this->getLatestUser();
+
+        return view('latest_user', compact('latestUser'));
+    }
+
+    private function getLatestUser()
+    {
+        $cachedUser = Cache::get('latest_user');
+
+        if ($cachedUser) {
+            return $cachedUser;
+        }
+
+        // Ako podatak nije u kešu, dohvati ga iz baze, keširaj i vrati
+        $user = User::latest()->first();
+
+        if ($user) {
+            $this->cacheLatestUser($user);
+        }
+
+        return $user;
+    }
+
+    
+
 
     /**
      * Display the specified resource.

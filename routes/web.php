@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserRoleController;
 use App\Http\Controllers\ExpenseController;
+use App\Http\Controllers\UserController;
 
 
 /*
@@ -41,6 +42,13 @@ Route::post('/import', [ExpenseController::class, 'import'])->name('import');
 
 // Ruta za izvoz podataka u CSV formatu
 Route::get('/export', [ExpenseController::class, 'export'])->name('export');
+
+
+
+
+
+Route::get('/latest_user', [UserController::class, 'showLatestUser']);
+
 
 require __DIR__.'/auth.php';
 
