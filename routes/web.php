@@ -2,10 +2,14 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+<<<<<<< HEAD
 use App\Http\Controllers\UserRoleController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\UserController;
 
+=======
+use App\Http\Controllers\FilesController;
+>>>>>>> 7536da7b7a9d43b87b8d87bcaf55d8120f974265
 
 /*
 |--------------------------------------------------------------------------
@@ -33,15 +37,16 @@ Route::middleware('auth')->group(function () {
 });
 
 
+Route::post('/upload-files', [FilesController::class, 'store']);
 
-// Ruta za prikaz forme za uvoz podataka
-Route::get('/import', [ExpenseController::class, 'showImportForm'])->name('import.form');
+//Route::post('upload-files', [FileController::class,'store'])->middleware('optimizeImages'); 
+Route::get('/upload', function () {
+    return view('upload');
+});
 
-// Ruta za obradu podataka iz forme za uvoz
-Route::post('/import', [ExpenseController::class, 'import'])->name('import');
+Route::get('/files', [FilesController::class, 'index'])->name('files.index');
 
-// Ruta za izvoz podataka u CSV formatu
-Route::get('/export', [ExpenseController::class, 'export'])->name('export');
+
 
 
 
@@ -51,5 +56,3 @@ Route::get('/latest_user', [UserController::class, 'showLatestUser']);
 
 
 require __DIR__.'/auth.php';
-
-
