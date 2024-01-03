@@ -1,13 +1,23 @@
-
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
-import Login from "./Login";
+import React, { Component } from "react";
+
+import GlavnaStrana from "./pages/GlavnaStrana";
+import Contact from "./pages/Contact";
+import Login from "./pages/Login";
+import PageNotFound from "./pages/PageNotFound";
 
 function App() {
   return (
-    <div className="App">
-      <div>Podeli trošak</div>
-      <Login />
-    </div>
+    //komponente koje ce se uvek prikazati
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<GlavnaStrana />} />
+        <Route path="contact" element={<Contact />} />
+        <Route path="login" element={<Login />} />
+        <Route path="*" element={<PageNotFound />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
