@@ -1,13 +1,13 @@
-import styles from "./Sidebar.module.css";
+import styles from "./AppSidebar.module.css";
 import React, { Component } from "react";
 import Logo from "../components/Logo";
-import AppNav from "../components/AppNav";
+import AppSidebarNav from "../components/AppSidebarNav";
 
-function Sidebar() {
+function AppSidebar() {
   return (
     <div className={styles.sidebar}>
       <Logo />
-      <AppNav />
+      <AppSidebarNav />
 
       <footer className={styles.footer}>
         <p className={styles.copyright}>
@@ -18,4 +18,4 @@ function Sidebar() {
   );
 }
 
-export default Sidebar;
+export default AppSidebarNav;

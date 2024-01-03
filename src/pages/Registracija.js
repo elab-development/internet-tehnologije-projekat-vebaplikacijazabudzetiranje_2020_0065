@@ -1,15 +1,14 @@
-import styles from "./Login.module.css";
-import React from "react";
+import styles from "./Registracija.module.css";
+import React, { Component } from "react";
 import { useState } from "react";
 import NavigacioniBar from "../components/NavigacioniBar";
 import Dugme from "../components/Dugme";
 import { NavLink } from "react-router-dom";
 
-
-export default function Login() {
+export default function Registracija() {
   // PRE-FILL FOR DEV PURPOSES
-  const [email, setEmail] = useState("tvoj_email@gmail.com");
-  const [password, setPassword] = useState("vasasifra");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   return (
     <main className={styles.main}>
@@ -34,15 +33,7 @@ export default function Login() {
             value={password}
           />
         </div>
-        <div className={styles.paragraf}>
-          <label>
-            Nemas nalog?
-            <NavLink to="/registracija" className={styles.registracija}>
-              Registruj se sada.
-            </NavLink>
-          </label>
-        </div>
-        <Dugme type="loginDugme">Login</Dugme>
+        <Dugme type="registracijaDugme">Registruj se</Dugme>
       </form>
     </main>
   );

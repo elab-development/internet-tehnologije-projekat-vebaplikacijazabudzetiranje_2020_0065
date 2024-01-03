@@ -1,9 +1,9 @@
-//import { styles } from "./AppNav.module.css";
+
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
-import styles from "./AppNav.module.css";
+import styles from "./AppSidebarNav.module.css";
 
-function AppNav() {
+function AppSidebarNav() {
   return (
     <nav className={styles.nav}>
       <ul>
@@ -21,4 +21,4 @@ function AppNav() {
   );
 }
 
-export default AppNav;
+export default AppSidebarNav;
