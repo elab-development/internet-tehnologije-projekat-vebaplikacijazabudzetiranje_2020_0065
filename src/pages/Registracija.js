@@ -14,6 +14,25 @@ export default function Registracija() {
     <main className={styles.main}>
       <NavigacioniBar />
       <form className={styles.forma}>
+      <div className={styles.polje}>
+          <label htmlFor="password">Username</label>
+          <input
+            type="password"
+            id="password"
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
+          />
+        </div>
+
+        <div className={styles.polje}>
+          <label htmlFor="password">Url slike</label>
+          <input
+            type="password"
+            id="password"
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
+          />
+        </div>
         <div className={styles.polje}>
           <label htmlFor="email">Email addresa</label>
           <input
@@ -24,7 +43,8 @@ export default function Registracija() {
           />
         </div>
 
-        <div className={styles.row}>
+
+        <div className={styles.polje}>
           <label htmlFor="password">Password</label>
           <input
             type="password"
@@ -33,6 +53,7 @@ export default function Registracija() {
             value={password}
           />
         </div>
+        
         <Dugme type="registracijaDugme">Registruj se</Dugme>
       </form>
     </main>

@@ -1,0 +1,17 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    margin-top: 15px;
+    font-size: 15px;
+  }
+  
+  .main ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    font-size: 12px;
+    margin-bottom: 12px;
+  }

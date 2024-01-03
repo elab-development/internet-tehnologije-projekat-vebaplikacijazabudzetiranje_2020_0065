@@ -1,21 +1,18 @@
 import styles from "./AppSidebar.module.css";
-import React, { Component } from "react";
+import React from "react";
 import Logo from "../components/Logo";
 import AppSidebarNav from "../components/AppSidebarNav";
+import FriendsList from "../components/FriendsList";
+import Footer from "../components/Footer";
 
 function AppSidebar() {
   return (
     <div className={styles.sidebar}>
       <Logo />
-      <AppSidebarNav />
-
-      <footer className={styles.footer}>
-        <p className={styles.copyright}>
-          &copy; Copyright {new Date().getFullYear()} by PodeliTroskic inc.
-        </p>
-      </footer>
+      <FriendsList />
+      <Footer />
     </div>
   );
 }
 
-export default AppSidebarNav;
+export default AppSidebar;
