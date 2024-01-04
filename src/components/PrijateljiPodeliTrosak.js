@@ -19,15 +19,14 @@ function PrijateljiPodeliTrosak() {
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
       <h2>Podeli trošak sa: {/*selectedFriend.name */}</h2>
-
-      <label>💰 Račun</label>
+      <label>Račun</label>
       <input
         type="text"
         value={bill}
         onChange={(e) => setBill(Number(e.target.value))}
       />
 
-      <label>🧍‍♀️Tvoj trošak</label>
+      <label>Tvoj trošak</label>
       <input
         type="text"
         value={paidByUser}
@@ -38,10 +37,10 @@ function PrijateljiPodeliTrosak() {
         }
       />
 
-      <label>👫 {/*selectedFriend.name*/}Prijateljski trošak</label>
+      <label> {/*selectedFriend.name*/}Prijateljski trošak</label>
       <input type="text" disabled value={paidByFriend} />
 
-      <label>🤑 Ko je platio račun</label>
+      <label>Ko je platio račun</label>
       <select
         value={whoIsPaying}
         onChange={(e) => setWhoIsPaying(e.target.value)}

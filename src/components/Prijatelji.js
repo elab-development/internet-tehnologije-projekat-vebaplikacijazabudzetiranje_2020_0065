@@ -2,26 +2,26 @@ import React from "react";
 import styles from "../components/Prijatelj.module.css";
 import Dugme from "./Dugme";
 
-function Prijatelj({ friend }) {
+function Prijatelj({ prijatelj }) {
   return (
     <li className={styles.prijatelj}>
-      <img src={friend.image} alt={friend.name} />
-      <h3>{friend.name}</h3>
-      {friend.balance === 0 && <p>Ti i {friend.name} nemate dugovanja</p>}
+      <img src={prijatelj.slika} alt={prijatelj.ime} />
+      <h3>{prijatelj.ime}</h3>
+      {prijatelj.balance === 0 && <p>Ti i {prijatelj.ime} nemate dugovanja</p>}
 
-      {friend.balance > 0 && (
+      {prijatelj.balance > 0 && (
         <p className={styles.green}>
-          {friend.name} ti duguje {Math.abs(friend.balance)}€
+          {prijatelj.ime} ti duguje {Math.abs(prijatelj.balance)}€
         </p>
       )}
 
-      {friend.balance < 0 && (
+      {prijatelj.balance < 0 && (
         <p className={styles.red}>
-          Duguješ {friend.name} {Math.abs(friend.balance)}€
+          Duguješ {prijatelj.ime} {Math.abs(prijatelj.balance)}€
         </p>
       )}
-
-      <Dugme type="prijateljDugme">Izaberi</Dugme>
+      
+      <Dugme type="prijateljDugme">IZABERI</Dugme>
     </li>
   );
 }

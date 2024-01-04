@@ -1,7 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
-import React, { Component } from "react";
-
+import React from "react";
 import GlavnaStrana from "./pages/GlavnaStrana";
 import Contact from "./pages/Contact";
 import Login from "./pages/Login";

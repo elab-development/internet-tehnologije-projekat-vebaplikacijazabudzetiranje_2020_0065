@@ -1,9 +1,9 @@
 import styles from "./Registracija.module.css";
-import React, { Component } from "react";
+import React from "react";
 import { useState } from "react";
 import NavigacioniBar from "../components/NavigacioniBar";
 import Dugme from "../components/Dugme";
-import { NavLink } from "react-router-dom";
+
 
 export default function Registracija() {
   // PRE-FILL FOR DEV PURPOSES
