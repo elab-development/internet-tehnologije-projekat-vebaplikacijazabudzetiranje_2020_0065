@@ -1,0 +1,27 @@
+.main {
+  display: grid;
+  align-items: center;
+  margin-top: 5px;
+  padding: 12px;
+  font-size: 1.6rem;
+  gap: 15px;
+  background-color: black;
+  border-radius: 14px; /* Ovo mu daje lepo zakrivljenje*/
+}
+.main label {
+  font-weight: 500;
+}
+
+.main input {
+  font-family: inherit;
+  color: black;
+  font-size: 15px;
+  padding: 3px;
+  text-align: center;
+}
+.div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 15px;
+}

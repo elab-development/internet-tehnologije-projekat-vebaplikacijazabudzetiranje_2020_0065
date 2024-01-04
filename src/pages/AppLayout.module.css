@@ -1,7 +1,9 @@
 .app {
-    height: 100vh;
-    padding: 2.4rem;
-    overscroll-behavior-y: none;
-    display: flex;
-    position: relative;
-  }
+  height: calc(100vh - 40px);
+  margin: 17px;
+  padding: 30px 50px;
+  overscroll-behavior-y: none;
+  display: flex;
+  position: relative;
+  background-color: grey;
+}
