@@ -1,5 +1,4 @@
 import React from "react";
-import { useState } from "react";
 import styles from "../components/Prijatelj.module.css";
 import Dugme from "./Dugme";
 

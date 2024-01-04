@@ -1,9 +1,14 @@
 .app {
-  height: calc(100vh - 40px);
-  margin: 17px;
+  height: 100vh;
   padding: 30px 50px;
   overscroll-behavior-y: none;
   display: flex;
   position: relative;
-  background-color: grey;
+  background-image: linear-gradient(
+      rgba(36, 42, 46, 0.8),
+      rgba(36, 42, 46, 0.8)
+    ),
+    url("finish5.jpg");
+  background-size: cover;
+  background-position: center;
 }

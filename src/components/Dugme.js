@@ -1,7 +1,7 @@
 import styles from "./Dugme.module.css";
 import React from "react";
 
-function Button({ children, onClick, type }) {
+function Dugme({ children, onClick, type }) {
   return (
     <button onClick={onClick} className={`${styles.btn} ${styles[type]}`}>
       {children}
@@ -9,4 +9,4 @@ function Button({ children, onClick, type }) {
   );
 }
 
-export default Button;
+export default Dugme;

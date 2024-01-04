@@ -1,0 +1,32 @@
+.form {
+  display: grid;
+  grid-template-columns: 1fr 260px;
+  align-items: center;
+  padding: 16px 16px;
+  font-size: 20px;
+  gap: 18px;
+  margin-left: 65px;
+  background-color: RGB(60, 60, 60);
+  border-radius: 11px;
+  width: 67vh;
+}
+.form label {
+  font-weight: 500;
+}
+
+.form h2 {
+  grid-column: 1 / -1;
+  font-size: 24px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.form input,
+select {
+  font-family: inherit;
+  color: black;
+  font-size: 16px;
+  padding: 6px;
+  text-align: center;
+  border-radius: 7px;
+  width: 24vh;
+}
