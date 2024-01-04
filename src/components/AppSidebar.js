@@ -1,7 +1,7 @@
 import styles from "./AppSidebar.module.css";
 import React from "react";
 import Logo from "../components/Logo";
-import PrijateljiLista from "../components/PrijateljiLista";
+import PrijateljiListaPaginacija from "../components/PrijateljiListaPaginacija";
 import Footer from "../components/Footer";
 import PrijateljiDodaj from "./PrijateljiDodaj";
 import { useState } from "react";
@@ -29,11 +29,40 @@ const prijateljJSON = [
     balance: 0,
     email: "b",
   },
+  {
+    id: 499476,
+    ime: "Anthony",
+    slika: "https://picsum.photos/222",
+    balance: 0,
+    email: "b",
+  },
+  {
+    id: 499476,
+    ime: "Anthony",
+    slika: "https://picsum.photos/220",
+    balance: 0,
+    email: "b",
+  },
+  {
+    id: 499476,
+    ime: "Anthony",
+    slika: "https://picsum.photos/202",
+    balance: 0,
+    email: "b",
+  },
+  {
+    id: 499476,
+    ime: "Anthony",
+    slika: "https://picsum.photos/201",
+    balance: 0,
+    email: "b",
+  },
 ];
 
 function AppSidebar() {
   const [otvoriFormu, setOtvoriFormu] = useState(false);
   const [prijatelji, setPrijatelj] = useState(prijateljJSON);
+  const velicinaStrane = 2;
 
   function otvoriFormuHandler() {
     setOtvoriFormu((prikazi) => !prikazi);
@@ -48,7 +77,10 @@ function AppSidebar() {
     <div className={styles.sidebar}>
       <Logo />
 
-      <PrijateljiLista prijatelji={prijatelji} />
+      <PrijateljiListaPaginacija
+        prijatelji={prijatelji}
+        velicinaStrane={velicinaStrane}
+      />
 
       {otvoriFormu && <PrijateljiDodaj onAddDodaj={dodajPrijateljaHandler} />}
 
@@ -59,5 +91,5 @@ function AppSidebar() {
     </div>
   );
 }
-
+//<PrijateljiLista prijatelji={trenutniPrijatelji} />
 export default AppSidebar;

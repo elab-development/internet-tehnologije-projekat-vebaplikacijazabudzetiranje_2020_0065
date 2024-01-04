@@ -6,9 +6,7 @@ import Button from "./Dugme";
 function PrijateljiDodaj({ onAddDodaj }) {
   const [ime, setIme] = useState("username");
   const [email, setEmail] = useState("mail@gmail.com");
-  const [slika, setSlika] = useState(
-    "https://i.postimg.cc/wjM3zGnN/1696160917795357.png"
-  );
+  const [slika, setSlika] = useState("https://picsum.photos/200");
 
   function handleSubmit(e) {
     e.preventDefault(); //sprecava da se stranica ponovo ucita

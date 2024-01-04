@@ -14,4 +14,11 @@
     gap: 7px;
     font-size: 12px;
     margin-bottom: 12px;
+    height: 22vh;
+  }
+  
+  .divZaDugmice {
+    display: flex;
+    justify-content: flex-start;
+    gap: 5px;
   }

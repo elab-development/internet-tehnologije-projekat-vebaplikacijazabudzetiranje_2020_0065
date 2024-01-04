@@ -54,3 +54,8 @@
   background-color: RGB(255, 110, 0);
   grid-column: 2;
 }
+.dugmePaginacija {
+  padding: 5px;
+  color: RGB(255, 110, 0);
+  background-color: RGB(230, 230, 230);
+}
