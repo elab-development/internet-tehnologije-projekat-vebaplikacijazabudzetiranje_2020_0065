@@ -4,42 +4,19 @@ import Logo from "../components/Logo";
 import PrijateljiListaPaginacija from "../components/PrijateljiListaPaginacija";
 import Footer from "../components/Footer";
 import PrijateljiDodaj from "./PrijateljiDodaj";
-import { useState, useEffect } from "react";
+import { useState, useContext } from "react";
 import Dugme from "./Dugme.js";
+import { SelektovanPrijateljContext } from "../pages/AppLayout.js";
 
 function AppSidebar() {
-  const [prijatelji, setPrijatelj] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [otvoriFormu, setOtvoriFormu] = useState(false);
   const velicinaStrane = 3;
 
-  useEffect(function () {
-    async function fetchPrijatelje() {
-      try {
-        setIsLoading(true);
-        const res = await fetch("/users.json");
-        const data = await res.json();
-        console.log(data);
-        setPrijatelj(data);
-      } catch {
-        alert("Doslo je do greske prilikom ucitavanja");
-      } finally {
-        setIsLoading(false);
-      }
-    }
-    fetchPrijatelje();
-  }, []);
-
-  if (!prijatelji) {
-    return <div>Loading...</div>;
-  }
+  const { prijatelji } = useContext(SelektovanPrijateljContext);
+  const { dodajPrijateljaHandler } = useContext(SelektovanPrijateljContext);
 
   function otvoriFormuHandler() {
     setOtvoriFormu((prikazi) => !prikazi);
-  }
-
-  function dodajPrijateljaHandler(prijatelj) {
-    setPrijatelj((prijatelji) => [...prijatelji, prijatelj]); //raspakuje prijatelji i dodaje novog na kraju
-    console.log(prijatelj);
   }
 
   return (

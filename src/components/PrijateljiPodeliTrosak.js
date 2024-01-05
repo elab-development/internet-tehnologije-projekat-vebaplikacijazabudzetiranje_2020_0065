@@ -1,55 +1,77 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import styles from "../components/PrijateljiPodeliTrosak.module.css";
 import Dugme from "./Dugme.js";
+import { SelektovanPrijateljContext } from "../pages/AppLayout.js";
 
 function PrijateljiPodeliTrosak() {
-  const [bill, setBill] = useState("");
-  const [paidByUser, setPaidByUser] = useState("");
-  const paidByFriend = bill ? bill - paidByUser : "";
-  const [whoIsPaying, setWhoIsPaying] = useState("user");
+  const [racun, setRacun] = useState("");
+  const [kategorija, setKategorija] = useState("");
+  const [datum, setDatum] = useState("");
+  const [mojDeo, setMojDeo] = useState("");
+  const prijateljDeo = racun ? racun - mojDeo : "";
+  const [koPlaca, setKoPlaca] = useState("korisnik");
+  const { selektovanPrijatelj } = useContext(SelektovanPrijateljContext);
+  const { podeliRacun } = useContext(SelektovanPrijateljContext);
 
-  function handleSubmit(e) {
+  function platiSubmit(e) {
     e.preventDefault();
 
-    //if (!bill || !paidByUser) return;
-    // onSplitBill(whoIsPaying === "user" ? paidByFriend : -paidByUser);
+    if (!racun || !mojDeo) return;
+
+    podeliRacun(koPlaca === "korisnik" ? prijateljDeo : -mojDeo);
+
+    const id = crypto.randomUUID();
+    const noviPrijatelj = {
+      racun,
+      kategorija,
+      datum,
+      koPlaca,
+    };
   }
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit}>
-      <h2>Podeli trošak sa: {/*selectedFriend.name */}</h2>
+    <form className={styles.form} onSubmit={platiSubmit}>
+      <h2>Podeli trošak sa: {selektovanPrijatelj.ime}</h2>
       <label>Račun</label>
       <input
         type="text"
-        value={bill}
-        onChange={(e) => setBill(Number(e.target.value))}
+        value={racun}
+        onChange={(e) => setRacun(Number(e.target.value))}
       />
-
+      <label>Kategorija</label>
+      <input
+        type="text"
+        value={kategorija}
+        onChange={(e) => setKategorija(e.target.value)}
+      />
+      <label>Datum</label>
+      <input
+        type="date"
+        value={datum}
+        onChange={(e) => setDatum(e.target.value)}
+      />
       <label>Tvoj trošak</label>
       <input
         type="text"
-        value={paidByUser}
+        value={mojDeo}
         onChange={(e) =>
-          setPaidByUser(
-            Number(e.target.value) > bill ? paidByUser : Number(e.target.value)
+          setMojDeo(
+            Number(e.target.value) > racun ? mojDeo : Number(e.target.value)
           )
         }
       />
 
-      <label> {/*selectedFriend.name*/}Prijateljski trošak</label>
-      <input type="text" disabled value={paidByFriend} />
+      <label>Prijateljski trošak</label>
+      <input type="text" disabled value={prijateljDeo} />
 
       <label>Ko je platio račun</label>
-      <select
-        value={whoIsPaying}
-        onChange={(e) => setWhoIsPaying(e.target.value)}
-      >
-        <option value="user">You</option>
-        <option value="friend">{/*selectedFriend.name */}</option>
+      <select value={koPlaca} onChange={(e) => setKoPlaca(e.target.value)}>
+        <option value="korisnik">Ti</option>
+        <option value="prijatelj">{selektovanPrijatelj.ime}</option>
       </select>
 
-      <Dugme type="podeliTrosak">Split bill</Dugme>
+      <Dugme type="podeliTrosak">Podeli </Dugme>
     </form>
   );
 }
