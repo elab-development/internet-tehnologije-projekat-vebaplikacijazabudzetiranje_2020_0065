@@ -4,65 +4,34 @@ import Logo from "../components/Logo";
 import PrijateljiListaPaginacija from "../components/PrijateljiListaPaginacija";
 import Footer from "../components/Footer";
 import PrijateljiDodaj from "./PrijateljiDodaj";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Dugme from "./Dugme.js";
 
-const prijateljJSON = [
-  {
-    id: 118836,
-    ime: "Clark",
-    slika: "https://i.pravatar.cc/48?u=118836",
-    balance: -7,
-    email: "b",
-  },
-  {
-    id: 933372,
-    ime: "Sarah",
-    slika: "https://i.pravatar.cc/48?u=933372",
-    balance: 20,
-    email: "b",
-  },
-  {
-    id: 499476,
-    ime: "Anthony",
-    slika: "https://i.pravatar.cc/48?u=499476",
-    balance: 0,
-    email: "b",
-  },
-  {
-    id: 499476,
-    ime: "Anthony",
-    slika: "https://picsum.photos/222",
-    balance: 0,
-    email: "b",
-  },
-  {
-    id: 499476,
-    ime: "Anthony",
-    slika: "https://picsum.photos/220",
-    balance: 0,
-    email: "b",
-  },
-  {
-    id: 499476,
-    ime: "Anthony",
-    slika: "https://picsum.photos/202",
-    balance: 0,
-    email: "b",
-  },
-  {
-    id: 499476,
-    ime: "Anthony",
-    slika: "https://picsum.photos/201",
-    balance: 0,
-    email: "b",
-  },
-];
-
 function AppSidebar() {
-  const [otvoriFormu, setOtvoriFormu] = useState(false);
-  const [prijatelji, setPrijatelj] = useState(prijateljJSON);
-  const velicinaStrane = 2;
+  const [prijatelji, setPrijatelj] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const velicinaStrane = 3;
+
+  useEffect(function () {
+    async function fetchPrijatelje() {
+      try {
+        setIsLoading(true);
+        const res = await fetch("/users.json");
+        const data = await res.json();
+        console.log(data);
+        setPrijatelj(data);
+      } catch {
+        alert("Doslo je do greske prilikom ucitavanja");
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    fetchPrijatelje();
+  }, []);
+
+  if (!prijatelji) {
+    return <div>Loading...</div>;
+  }
 
   function otvoriFormuHandler() {
     setOtvoriFormu((prikazi) => !prikazi);

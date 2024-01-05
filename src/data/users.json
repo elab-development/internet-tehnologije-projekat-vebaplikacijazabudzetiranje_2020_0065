@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "ime": "Marija",
+    "slika": "https://picsum.photos/222",
+    "balance": -7,
+    "email": "mail1@example.com"
+  },
+  {
+    "id": 2,
+    "ime": "Njegos",
+    "slika": "https://picsum.photos/223",
+    "balance": 20,
+    "email": "mail2@example.com"
+  },
+  {
+    "id": 3,
+    "ime": "Ognjen",
+    "slika": "https://picsum.photos/224",
+    "balance": 0,
+    "email": "mail3@example.com"
+  },
+  {
+    "id": 4,
+    "ime": "Zitopek",
+    "slika": "https://picsum.photos/225",
+    "balance": 10,
+    "email": "mail4@example.com"
+  },
+  {
+    "id": 5,
+    "ime": "Milica",
+    "slika": "https://picsum.photos/226",
+    "balance": -70,
+    "email": "mail5@example.com"
+  },
+
+  {
+    "id": 6,
+    "ime": "Carica",
+    "slika": "https://picsum.photos/227",
+    "balance": 12,
+    "email": "mail6@example.com"
+  },
+  {
+    "id": 7,
+    "ime": "Kralj petar",
+    "slika": "https://picsum.photos/227",
+    "balance": 120,
+    "email": "mail7@example.com"
+  }
+]

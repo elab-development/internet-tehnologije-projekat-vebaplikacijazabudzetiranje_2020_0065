@@ -39,6 +39,8 @@
   margin-right: 10px;
   color: RGB(230, 230, 230);
   background-color: RGB(255, 110, 0);
+  position: fixed;
+  left: 47vh;
 }
 
 .prijateljDodaj {
