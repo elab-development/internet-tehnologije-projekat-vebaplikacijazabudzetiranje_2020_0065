@@ -16,14 +16,17 @@ const PaginationComponent = ({ prijatelji, velicinaStrane }) => {
   const goToPage = (pageNumber) => {
     setTrenutnaStranica(pageNumber);
   };
-
+  if (!selektovaniPrijatelji) return;
   return (
     <div>
       <div className={styles.main}>
-        Tvoja lista prijatelja:
+
         <ul>
           {selektovaniPrijatelji.map((prijatelj) => (
-            <Prijatelj key={prijatelj.id} prijatelj={prijatelj} />
+                        <Prijatelj
+                        prijatelj={prijatelj}
+                        key={prijatelj.id + prijatelj.ime}
+                      />
           ))}
         </ul>
       </div>

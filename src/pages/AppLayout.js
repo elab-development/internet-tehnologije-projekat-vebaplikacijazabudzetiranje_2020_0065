@@ -10,8 +10,7 @@ export const SelektovanPrijateljContext = createContext();
 
 function AppLayout() {
   const [selektovanPrijatelj, setSelectovanPrijatelj] = useState(null);
-  const { prijatelji, setPrijatelji, isLoading, error } =
-    useFetch("/users.json");
+  const { prijatelji, setPrijatelji } = useFetch("/users.json");
 
   if (!prijatelji) {
     return <div>Podaci se ucitavaju...</div>;

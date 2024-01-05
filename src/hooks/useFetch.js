@@ -22,5 +22,5 @@ export function useFetch(url) {
     fetchPrijatelje();
   }, [url]);
 
-  return { prijatelji, setPrijatelji, isLoading, error };
+  return { prijatelji, setPrijatelji };
 }
