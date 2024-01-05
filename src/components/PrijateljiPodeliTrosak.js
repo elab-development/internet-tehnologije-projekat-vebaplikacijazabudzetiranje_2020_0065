@@ -20,7 +20,7 @@ function PrijateljiPodeliTrosak() {
     if (!racun || !mojDeo) return;
 
     podeliRacun(koPlaca === "korisnik" ? prijateljDeo : -mojDeo);
-
+/*
     const id = crypto.randomUUID();
     const noviPrijatelj = {
       racun,
@@ -28,6 +28,7 @@ function PrijateljiPodeliTrosak() {
       datum,
       koPlaca,
     };
+    */
   }
 
   return (

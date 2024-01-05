@@ -4,14 +4,18 @@ import AppMainbar from "../components/AppMainbar";
 import PageNav from "../components/NavigacioniBar";
 //import AppNav from "../components/AppNav";
 import styles from "./AppLayout.module.css";
-import { createContext, useState, Context, useEffect } from "react";
-
+import { createContext, useState, Context } from "react";
+import { useFetch } from "../hooks/useFetch.js";
 export const SelektovanPrijateljContext = createContext();
 
 function AppLayout() {
   const [selektovanPrijatelj, setSelectovanPrijatelj] = useState(null);
-  const [prijatelji, setPrijatelj] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const { prijatelji, setPrijatelji, isLoading, error } =
+    useFetch("/users.json");
+
+  if (!prijatelji) {
+    return <div>Podaci se ucitavaju...</div>;
+  }
 
   function onSelektuj(prijatelj) {
     setSelectovanPrijatelj((trenutni) =>
@@ -19,7 +23,7 @@ function AppLayout() {
     );
   }
   function podeliRacun(vrednost) {
-    setPrijatelj((prijatelji) =>
+    setPrijatelji((prijatelji) =>
       prijatelji.map((prijatelj) =>
         prijatelj.id === selektovanPrijatelj.id
           ? { ...prijatelj, balance: prijatelj.balance + vrednost }
@@ -30,28 +34,8 @@ function AppLayout() {
     setSelectovanPrijatelj(null);
   }
   function dodajPrijateljaHandler(prijatelj) {
-    setPrijatelj((prijatelji) => [...prijatelji, prijatelj]); //raspakuje prijatelji i dodaje novog na kraju
-    console.log(prijatelj);
-  }
-  useEffect(function () {
-    async function fetchPrijatelje() {
-      try {
-        setIsLoading(true);
-        const res = await fetch("/users.json");
-        const data = await res.json();
-        setPrijatelj(data);
-      } catch {
-        alert("Doslo je do greske prilikom ucitavanja");
-      } finally {
-        setIsLoading(false);
-      }
-    }
-    fetchPrijatelje();
-  }, []);
+    setPrijatelji((prijatelji) => [...prijatelji, prijatelj]); //raspakuje prijatelji i dodaje novog na kraju
 
-  if (!prijatelji) {
-    return <div>Podaci se ucitavaju...</div>;
-  }
 
   return (
     <SelektovanPrijateljContext.Provider
@@ -69,6 +53,7 @@ function AppLayout() {
       </div>
     </SelektovanPrijateljContext.Provider>
   );
+}
 }
 
 export default AppLayout;
