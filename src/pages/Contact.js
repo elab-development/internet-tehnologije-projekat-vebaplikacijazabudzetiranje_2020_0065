@@ -1,13 +1,13 @@
 import styles from "./Contact.module.css";
 import React from "react";
 import NavigacioniBar from "../components/NavigacioniBar";
-//Svaka komponenta ima svoj .css fajl (css module)
+
 export default function Contact() {
   return (
     <main className={styles.contact}>
       <NavigacioniBar />
       <section>
-        <img src="/fon.jpg" alt="Fakultet Organizacionih Nauka" />
+        <img src="/fon1.jpg" alt="Fakultet Organizacionih Nauka" />
         <div>
           <h2>O nama</h2>
           <p>

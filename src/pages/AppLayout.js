@@ -1,16 +1,16 @@
 import React from "react";
 import AppSidebar from "../components/AppSidebar";
 import AppMainbar from "../components/AppMainbar";
-import PageNav from "../components/NavigacioniBar";
-//import AppNav from "../components/AppNav";
 import styles from "./AppLayout.module.css";
-import { createContext, useState, Context } from "react";
-import { useFetch } from "../hooks/useFetch.js";
+import { createContext, useState, Context, useEffect } from "react";
+import { usePrijatelji } from "../hooks/usePrijatelji.js";
+
 export const SelektovanPrijateljContext = createContext();
 
-function AppLayout() {
+export default function AppLayout() {
   const [selektovanPrijatelj, setSelectovanPrijatelj] = useState(null);
-  const { prijatelji, setPrijatelji } = useFetch("/users.json");
+  const { prijatelji, setPrijatelji, promenjeno, setPromenjeno } =
+    usePrijatelji("http://127.0.0.1:8000/api/friends");
 
   if (!prijatelji) {
     return <div>Podaci se ucitavaju...</div>;
@@ -34,8 +34,7 @@ function AppLayout() {
   }
   function dodajPrijateljaHandler(prijatelj) {
     setPrijatelji((prijatelji) => [...prijatelji, prijatelj]); //raspakuje prijatelji i dodaje novog na kraju
-
-
+  }
   return (
     <SelektovanPrijateljContext.Provider
       value={{
@@ -44,6 +43,7 @@ function AppLayout() {
         prijatelji: prijatelji,
         dodajPrijateljaHandler: dodajPrijateljaHandler,
         podeliRacun: podeliRacun,
+        setPromenjeno: setPromenjeno,
       }}
     >
       <div className={styles.app}>
@@ -53,6 +53,3 @@ function AppLayout() {
     </SelektovanPrijateljContext.Provider>
   );
 }
-}
-
-export default AppLayout;

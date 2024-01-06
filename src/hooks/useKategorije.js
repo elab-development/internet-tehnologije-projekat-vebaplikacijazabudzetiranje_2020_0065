@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
-export function useFetch(url) {
-  const [prijatelji, setPrijatelji] = useState(null);
+export function useKategorije(url) {
+  const [kategorije, setKategorije] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -11,7 +11,7 @@ export function useFetch(url) {
         setIsLoading(true);
         const res = await fetch(url);
         const data = await res.json();
-        setPrijatelji(data);
+        setKategorije(data.data);
       } catch (e) {
         setError(e.message);
         alert("Došlo je do greške prilikom učitavanja");
@@ -22,5 +22,5 @@ export function useFetch(url) {
     fetchPrijatelje();
   }, [url]);
 
-  return { prijatelji, setPrijatelji };
+  return { kategorije, setKategorije };
 }

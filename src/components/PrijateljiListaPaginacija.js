@@ -20,20 +20,20 @@ const PaginationComponent = ({ prijatelji, velicinaStrane }) => {
   return (
     <div>
       <div className={styles.main}>
-
         <ul>
           {selektovaniPrijatelji.map((prijatelj) => (
-                        <Prijatelj
-                        prijatelj={prijatelj}
-                        key={prijatelj.id + prijatelj.ime}
-                      />
+            <Prijatelj key={prijatelj.id} prijatelj={prijatelj} />
           ))}
         </ul>
       </div>
 
       <div className={styles.divZaDugmice}>
         {Array.from({ length: ukupnoStranica }, (_, index) => (
-          <Dugme type="dugmePaginacija" onClick={() => goToPage(index + 1)}>
+          <Dugme
+            key={index}
+            type="dugmePaginacija"
+            onClick={() => goToPage(index + 1)}
+          >
             {index + 1}
           </Dugme>
         ))}

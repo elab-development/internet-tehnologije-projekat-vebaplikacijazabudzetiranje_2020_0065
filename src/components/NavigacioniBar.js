@@ -3,7 +3,6 @@ import React from "react";
 import styles from "./NavigacioniBar.module.css";
 import Logo from "./Logo";
 
-//reusable komponenta
 function NavigacioniBar() {
   return (
     <nav className={styles.navigacioniBar}>

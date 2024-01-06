@@ -20,6 +20,14 @@
   background-color: RGB(255, 110, 0);
   color: RGB(230, 230, 230);
 }
+.obrisi {
+  padding: 7px;
+  padding-top: 5px;
+  color: RGB(255, 110, 0);
+  background-color: red;
+  width: 3vh;
+  height: 3vh;
+}
 
 .position {
   font-weight: 700;
@@ -33,23 +41,19 @@
   color: yellow;
   box-shadow: 0 0.4rem 1.2rem rgba(36, 42, 46, 0.16);
 }
+
 .prijateljDugme {
-  grid-row: span 3;
-  grid-column: 3;
-  margin-right: 10px;
   color: RGB(230, 230, 230);
   background-color: RGB(255, 110, 0);
   position: fixed;
   left: 47vh;
 }
-
 .prijateljDodaj {
   margin-top: 7px;
   color: RGB(230, 230, 230);
   background-color: RGB(255, 110, 0);
   grid-column: 2;
 }
-
 .podeliTrosak {
   margin-top: 7px;
   color: RGB(230, 230, 230);

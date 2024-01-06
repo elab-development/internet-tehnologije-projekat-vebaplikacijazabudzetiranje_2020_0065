@@ -4,12 +4,33 @@ import { useState } from "react";
 import NavigacioniBar from "../components/NavigacioniBar";
 import Dugme from "../components/Dugme";
 import { NavLink } from "react-router-dom";
-
+import axios from "axios";
 
 export default function Login() {
-  // PRE-FILL FOR DEV PURPOSES
   const [email, setEmail] = useState("tvoj_email@gmail.com");
   const [password, setPassword] = useState("vasasifra");
+
+  async function loginUser(e) {
+    e.preventDefault();
+
+    const emailU = email;
+    const passwordU = password;
+    const loginPodaci = {
+      emailU,
+      passwordU,
+    };
+    console.log(loginPodaci);
+
+    try {
+      const response = await axios.post(
+        "http://127.0.0.1:8000/login",
+        loginPodaci
+      );
+      console.log(response);
+    } catch (error) {
+      console.error("There was an error!", error);
+    }
+  }
 
   return (
     <main className={styles.main}>

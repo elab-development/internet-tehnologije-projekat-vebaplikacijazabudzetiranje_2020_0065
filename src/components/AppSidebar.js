@@ -9,19 +9,18 @@ import Dugme from "./Dugme.js";
 import { SelektovanPrijateljContext } from "../pages/AppLayout.js";
 import SearchBar from "./SearchBar.js";
 
-function AppSidebar() {
+export default function AppSidebar() {
   const [otvoriFormu, setOtvoriFormu] = useState(false);
   const velicinaStrane = 3;
 
   const { prijatelji } = useContext(SelektovanPrijateljContext);
-  const { dodajPrijateljaHandler } = useContext(SelektovanPrijateljContext);
   const [search, setSearch] = useState("");
   const [filteredPrijatelji, setFilteredPrijatelji] = useState([]);
 
   useEffect(() => {
     if (prijatelji) {
       const filtered = prijatelji.filter((prijatelj) =>
-        prijatelj.ime.toLowerCase().includes(search.toLowerCase())
+        prijatelj.name.toLowerCase().includes(search.toLowerCase())
       );
       setFilteredPrijatelji(filtered);
     }
@@ -42,14 +41,13 @@ function AppSidebar() {
         velicinaStrane={velicinaStrane}
       />
 
-      {otvoriFormu && <PrijateljiDodaj onAddDodaj={dodajPrijateljaHandler} />}
+      {otvoriFormu && <PrijateljiDodaj />}
 
       <Dugme type="prijateljDodaj" onClick={otvoriFormuHandler}>
         {otvoriFormu ? "Zatvori" : "Dodaj prijatelja"}
       </Dugme>
+
       <Footer />
     </div>
   );
 }
-//<PrijateljiLista prijatelji={trenutniPrijatelji} />
-export default AppSidebar;

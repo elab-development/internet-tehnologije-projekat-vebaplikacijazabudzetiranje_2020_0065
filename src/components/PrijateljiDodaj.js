@@ -1,33 +1,47 @@
 import styles from "./PrijateljiDodaj.module.css";
 import React from "react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Button from "./Dugme";
+import axios from "axios";
+import { SelektovanPrijateljContext } from "../pages/AppLayout.js";
 
-function PrijateljiDodaj({ onAddDodaj }) {
-  const [ime, setIme] = useState("username");
+export default function PrijateljiDodaj() {
+  const [name, setName] = useState("username");
   const [email, setEmail] = useState("mail@gmail.com");
-  const [slika, setSlika] = useState("https://picsum.photos/200");
+  const [image, setImage] = useState("https://picsum.photos/200");
 
-  function handleSubmit(e) {
+  const { dodajPrijateljaHandler } = useContext(SelektovanPrijateljContext);
+
+  async function handleSubmit(e) {
     e.preventDefault(); //sprecava da se stranica ponovo ucita
 
-    if (!ime || !slika) return;
+    if (!name || !image) return;
 
-    const id = crypto.randomUUID();
     const noviPrijatelj = {
-      id,
-      ime,
-      slika: `${slika}?=${id}`,
+      name,
+      image: `${image}`,
       balance: 0,
       email,
     };
-    onAddDodaj(noviPrijatelj); //Dodaje novog prijatelja u bazu
+    try {
+      const response = await axios.post(
+        "http://127.0.0.1:8000/api/friends",
+        noviPrijatelj
+      );
+    } catch (error) {
+      console.error("There was an error!", error);
+    }
 
+    dodajPrijateljaHandler(noviPrijatelj);
   }
-    return (
-      <form className={styles.main} onSubmit={handleSubmit}>
+  return (
+    <form className={styles.main} onSubmit={handleSubmit}>
       <label>Ime prijatelja</label>
-      <input type="text" value={ime} onChange={(e) => setIme(e.target.value)} />
+      <input
+        type="text"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
 
       <label>Email prijatelja</label>
       <input
@@ -38,13 +52,12 @@ function PrijateljiDodaj({ onAddDodaj }) {
       <label>URL slike</label>
       <input
         type="text"
-        value={slika}
-        onChange={(e) => setSlika(e.target.value)}
+        value={image}
+        onChange={(e) => setImage(e.target.value)}
       />
-      <Button type="prijateljDodaj">Dodaj</Button>
+      <Button type="prijateljDodaj" onClick={handleSubmit}>
+        Dodaj
+      </Button>
     </form>
-   
   );
 }
-
-export default PrijateljiDodaj;

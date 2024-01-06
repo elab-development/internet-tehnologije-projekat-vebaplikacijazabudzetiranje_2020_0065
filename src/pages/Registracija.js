@@ -4,9 +4,7 @@ import { useState } from "react";
 import NavigacioniBar from "../components/NavigacioniBar";
 import Dugme from "../components/Dugme";
 
-
 export default function Registracija() {
-  // PRE-FILL FOR DEV PURPOSES
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -14,7 +12,7 @@ export default function Registracija() {
     <main className={styles.main}>
       <NavigacioniBar />
       <form className={styles.forma}>
-      <div className={styles.polje}>
+        <div className={styles.polje}>
           <label htmlFor="password">Username</label>
           <input
             type="password"
@@ -43,7 +41,6 @@ export default function Registracija() {
           />
         </div>
 
-
         <div className={styles.polje}>
           <label htmlFor="password">Password</label>
           <input
@@ -53,7 +50,7 @@ export default function Registracija() {
             value={password}
           />
         </div>
-        
+
         <Dugme type="registracijaDugme">Registruj se</Dugme>
       </form>
     </main>

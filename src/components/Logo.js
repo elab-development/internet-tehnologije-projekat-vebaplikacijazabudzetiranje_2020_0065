@@ -6,7 +6,7 @@ function Logo({ type }) {
   return (
     <Link to="/">
       <img
-        src="/finish-logo1.png"
+        src="/images/finish-logo1.png"
         alt="PodeliTroskic logo"
         className={styles[type]}
       />

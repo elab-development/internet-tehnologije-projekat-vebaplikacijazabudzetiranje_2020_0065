@@ -1,0 +1,18 @@
+.main {
+  display: flex;
+  justify-content: space-between;
+  align-items: right;
+  gap: 12px;
+}
+
+.link {
+  background-color: RGB(255, 110, 0);
+  color: RGB(255, 255, 255);
+  border-radius: 10px; /* zakrivljenje u login */
+  padding: 10px 27px;
+  text-decoration: none; /* bez njega ima donja crta*/
+  font-size: 16px;
+  color: RGB(240, 240, 240);
+  text-transform: uppercase;
+  font-weight: 590;
+}
