@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import styles from "../components/PrijateljiPodeliTrosak.module.css";
 import Dugme from "./Dugme.js";
 import { SelektovanPrijateljContext } from "../pages/AppLayout.js";
@@ -68,12 +68,6 @@ function PrijateljiPodeliTrosak() {
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
       <h2>Podeli trošak sa: {selektovanPrijatelj.name}</h2>
-      <label>Opis troska</label>
-      <input
-        type="text"
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-      />
       <label>Opis troska</label>
       <input
         type="text"

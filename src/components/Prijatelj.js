@@ -24,12 +24,11 @@ function Prijatelj({ prijatelj }) {
     }
     setPromenjeno(id);
   }
-
   return (
     <li className={styles.prijatelj}>
       <img src={prijatelj.image} alt={prijatelj.name} />
       <h3>{prijatelj.name}</h3>
-      {prijatelj.balance === 0 && <p>Ti i {prijatelj.name} nemate dugovanja</p>}
+      {prijatelj.balance == 0 && <p>Ti i {prijatelj.name} nemate dugovanja</p>}
 
       {prijatelj.balance > 0 && (
         <p className={styles.green}>
@@ -42,11 +41,9 @@ function Prijatelj({ prijatelj }) {
           Duguješ {prijatelj.name} {Math.abs(prijatelj.balance)}€
         </p>
       )}
-
       <Dugme onClick={() => obrisi(prijatelj.id)} type="obrisi">
         X
       </Dugme>
-
       <Dugme onClick={() => onSelektuj(prijatelj)} type="prijateljDugme">
         {selektovan ? "Zatvori" : "Izaberi"}
       </Dugme>

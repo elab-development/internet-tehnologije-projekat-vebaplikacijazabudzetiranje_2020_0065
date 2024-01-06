@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Prijatelj from "./Prijatelji.js";
+import Prijatelj from "./Prijatelj";
 import styles from "../components/PrijateljiListaPaginacija.module.css";
 import Dugme from "./Dugme.js";
 
@@ -16,7 +16,7 @@ const PaginationComponent = ({ prijatelji, velicinaStrane }) => {
   const goToPage = (pageNumber) => {
     setTrenutnaStranica(pageNumber);
   };
-  if (!selektovaniPrijatelji) return;
+
   return (
     <div>
       <div className={styles.main}>

@@ -1,7 +1,7 @@
 import styles from "./PrijateljiDodaj.module.css";
 import React from "react";
 import { useState, useContext } from "react";
-import Button from "./Dugme";
+import Button from "../components/Dugme";
 import axios from "axios";
 import { SelektovanPrijateljContext } from "../pages/AppLayout.js";
 
@@ -16,7 +16,6 @@ export default function PrijateljiDodaj() {
     e.preventDefault(); //sprecava da se stranica ponovo ucita
 
     if (!name || !image) return;
-
     const noviPrijatelj = {
       name,
       image: `${image}`,
@@ -31,9 +30,9 @@ export default function PrijateljiDodaj() {
     } catch (error) {
       console.error("There was an error!", error);
     }
-
     dodajPrijateljaHandler(noviPrijatelj);
   }
+
   return (
     <form className={styles.main} onSubmit={handleSubmit}>
       <label>Ime prijatelja</label>
