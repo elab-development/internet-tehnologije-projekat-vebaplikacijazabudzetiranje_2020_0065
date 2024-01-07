@@ -1,12 +1,12 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import styles from "./ImportExport.module.css";
+import styles from "./UploadExport.module.css";
 
-export default function ImportExport() {
+export default function UploadExport() {
   return (
     <div className={styles.main}>
       <NavLink className={styles.link} to="http://localhost:8000/upload">
-        Import
+        Upload
       </NavLink>
       <NavLink className={styles.link} to="http://localhost:8000/export">
         Export
