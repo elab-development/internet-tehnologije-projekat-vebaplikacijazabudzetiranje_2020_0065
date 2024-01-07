@@ -12,6 +12,7 @@
         "laravel/tinker": "^2.8",
         "league/csv": "^9.12",
         "maatwebsite/excel": "^1.1",
+        "predis/predis": "*",
         "spatie/laravel-image-optimizer": "^1.7",
         "spatie/laravel-permission": "^6.1"
     },
