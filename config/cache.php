@@ -1,7 +1,4 @@
-
 <?php
-
-
 return [
     'default' => env('CACHE_DRIVER', 'file'),
     
@@ -10,6 +7,11 @@ return [
             'driver' => 'redis',
             'connection' => 'default',
         ],
+        'file' => [
+            'driver' => 'file',
+            'path' => storage_path('framework/cache/data'),
+        ],
     ],
 ];
+
 
