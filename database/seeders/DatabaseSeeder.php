@@ -9,6 +9,7 @@ use App\Models\Category;
 use App\Models\Expense;
 use App\Models\Group;
 use App\Models\Reimbursement;
+use App\Models\Friend;
 
 
 class DatabaseSeeder extends Seeder
@@ -20,10 +21,12 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             UserSeeder::class,
+            CategorySeeder::class,
             ExpenseSeeder::class,
             ReimbursementSeeder::class,
             GroupSeeder::class,
-            CategorySeeder::class,
+            FriendSeeder::class,
+            SpendingSeeder::class,
 
     ]);
 }

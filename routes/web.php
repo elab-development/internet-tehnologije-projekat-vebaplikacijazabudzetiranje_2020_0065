@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FilesController;
+use App\Http\Controllers\PrijateljController;
+
 
 
 /*
@@ -18,6 +20,9 @@ use App\Http\Controllers\FilesController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -54,6 +59,9 @@ Route::get('/upload', function () {
 Route::get('/files', [FilesController::class, 'index'])->name('files.index');
 
 Route::get('/latest_user', [UserController::class, 'showLatestUser']);
+
+//Route::get('/prijatelji', [PrijateljController::class, 'index']);
+
 
 
 require __DIR__.'/auth.php';

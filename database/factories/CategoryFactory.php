@@ -22,12 +22,9 @@ class CategoryFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->word,
+            
         ];
     }
 
-    public function newModel(array $attributes = []): Category
-    {
-        return new Category($attributes);
-    }
+  
 }

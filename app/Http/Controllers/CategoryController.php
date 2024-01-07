@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Resources\CategoryResource;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Validator;
+
 
 class CategoryController extends Controller
 {
@@ -12,7 +16,12 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            $categories = Category::all();
+            return CategoryResource::collection($categories);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Error occured while trying to display users.', 'error' => $e->getMessage()], 500);
+        }
     }
 
     /**
@@ -28,7 +37,14 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $categories = new Friend();
+        $categories->id = $request->input('id');
+        $categories->name = $request->input('name');
+        $categories->save();
+
+        $this->cacheLatestFriend($categories);
+
+        return response()->json(['message' => 'Friend successfully created']);
     }
 
     /**

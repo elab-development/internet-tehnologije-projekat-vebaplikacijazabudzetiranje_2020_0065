@@ -8,11 +8,17 @@ use App\Models\Category;
 
 class CategorySeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
-    public function run(): void
+    
+ public function run()
     {
-        Category::factory(8)->create();
+        $categories = [
+            'Putovanje', 'Hrana', 'Prevoz', 'Odeća', 'Zabava',
+            'Sport', 'Tehnika', 'Zdravlje', 'Kuća', 'Ostalo'
+        ];
+
+        foreach ($categories as $categoryName) {
+            Category::create(['name' => $categoryName]);
+        }
     }
+    
 }
