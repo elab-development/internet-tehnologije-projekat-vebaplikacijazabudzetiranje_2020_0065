@@ -58,6 +58,8 @@ Route::get('/upload', function () {
 
 Route::get('/files', [FilesController::class, 'index'])->name('files.index');
 
+// za kesiranje
+
 Route::get('/latest_user', [UserController::class, 'showLatestUser']);
 
 //Route::get('/prijatelji', [PrijateljController::class, 'index']);
