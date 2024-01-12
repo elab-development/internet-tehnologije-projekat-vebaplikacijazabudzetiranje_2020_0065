@@ -10,7 +10,6 @@ import Registracija from "./pages/Registracija";
 
 function App() {
   return (
-    //komponente koje ce se uvek prikazati
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<GlavnaStrana />} />
