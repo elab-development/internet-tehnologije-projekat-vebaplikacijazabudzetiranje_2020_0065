@@ -83,4 +83,73 @@ class SpendingController extends Controller
     {
         //
     }
+
+    public function import(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'file' => 'required|mimes:csv,txt',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator);
+        }
+
+        $file = $request->file('file');
+        $fileContents = file($file->getPathname());
+
+        foreach ($fileContents as $line) {
+            $data = str_getcsv($line);
+
+            Spending::create([
+                'description' => $data[0],
+                'transaction_date' => $data[1],
+                'amount' => $data[2],
+                'refund' => $data[3],
+                'paidby' => $data[4]
+                
+            ]);
+        }
+
+        return redirect()->back()->with('success', 'CSV file imported successfully.');
+    }
+    public function export()
+    {
+        $spendings = Spending::all();
+    
+        $headers = [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename="spendings.csv"',
+        ];
+    
+        $callback = function () use ($spendings) {
+            $file = fopen('php://output', 'w');
+    
+            // Header red
+            fputcsv($file, [
+                'Description', 
+                'Transaction Date', 
+                'Amount', 
+                'Refund', 
+                'Paid By',
+                
+            ]);
+    
+            // Data rows
+            foreach ($spendings as $spending) {
+                fputcsv($file, [
+                    $spending->description,
+                    $spending->transaction_date,
+                    $spending->amount,
+                    $spending->refund,
+                    $spending->paidby,
+                    
+                ]);
+            }
+    
+            fclose($file);
+        };
+    
+        return Response::stream($callback, 200, $headers);
+    }
 }
+
