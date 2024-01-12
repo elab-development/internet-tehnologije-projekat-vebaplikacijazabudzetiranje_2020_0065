@@ -6,9 +6,9 @@ export default function ImportExport() {
   return (
     <div className={styles.main}>
       <NavLink className={styles.link} to="http://localhost:8000/upload">
-        Import
+        Upload
       </NavLink>
-      <NavLink className={styles.link} to="http://localhost:8000/export">
+      <NavLink className={styles.link} to="http://localhost:8000/spendings/export">
         Export
       </NavLink>
     </div>

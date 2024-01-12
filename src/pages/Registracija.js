@@ -5,6 +5,8 @@ import NavigacioniBar from "../components/NavigacioniBar";
 import Dugme from "../components/Dugme";
 
 export default function Registracija() {
+  const [username, setUsername] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -13,26 +15,27 @@ export default function Registracija() {
       <NavigacioniBar />
       <form className={styles.forma}>
         <div className={styles.polje}>
-          <label htmlFor="password">Username</label>
+          <label htmlFor="username">Username</label>
           <input
-            type="password"
-            id="password"
-            onChange={(e) => setPassword(e.target.value)}
-            value={password}
+            type="text"
+            id="username"
+            onChange={(e) => setUsername(e.target.value)}
+            value={username}
           />
         </div>
 
         <div className={styles.polje}>
-          <label htmlFor="password">Url slike</label>
+          <label htmlFor="imageUrl">Url slike</label>
           <input
-            type="password"
-            id="password"
-            onChange={(e) => setPassword(e.target.value)}
-            value={password}
+            type="text"
+            id="imageUrl"
+            onChange={(e) => setImageUrl(e.target.value)}
+            value={imageUrl}
           />
         </div>
+
         <div className={styles.polje}>
-          <label htmlFor="email">Email addresa</label>
+          <label htmlFor="email">Email adresa</label>
           <input
             type="email"
             id="email"
@@ -56,3 +59,4 @@ export default function Registracija() {
     </main>
   );
 }
+

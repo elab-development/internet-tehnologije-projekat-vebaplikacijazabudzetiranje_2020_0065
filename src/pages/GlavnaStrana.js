@@ -16,7 +16,7 @@ export default function GlavnaStrana() {
         <h2>
           Onda PodeliTroškić aplikacija je prava za vas. U samo jednom koraku
           izračunaj svotu novca koju svako treba da plati, ukoliko neko nema
-          sitno, plati za njega a njemu će stići mejl koliko duguje.
+          sitno, plati za njega, a njemu će stići mejl koliko duguje.
         </h2>
         <Link to="/app" className="podeliTrosak">
           Podeli trošak sada
