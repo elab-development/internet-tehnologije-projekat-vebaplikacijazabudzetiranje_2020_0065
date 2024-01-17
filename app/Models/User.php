@@ -13,20 +13,9 @@ class User extends Authenticatable
     use HasFactory,HasApiTokens,Notifiable;
 
     protected $fillable = [
-        'name', 'email', 'password', 'role'
+        'name', 'email', 'password'
     ];
 
-    public function expenses() {
-        return $this->hasMany(Expense::class);
-    }
-
-    public function reimbursements() {
-        return $this->hasMany(Reimbursement::class);
-    }
-
-    public function groups() {
-        return $this->belongsToMany(Group::class);
-    }
 
     
 }

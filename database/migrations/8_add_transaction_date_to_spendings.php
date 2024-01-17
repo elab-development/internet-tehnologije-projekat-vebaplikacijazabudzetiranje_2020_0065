@@ -9,7 +9,7 @@ return new class extends Migration
    
     public function up(): void
     {
-        Schema::table('expenses', function (Blueprint $table) {
+        Schema::table('spendings', function (Blueprint $table) {
             $table->date('transaction_date');
         });
     }
@@ -17,7 +17,7 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::table('expenses', function (Blueprint $table) {
+        Schema::table('spendings', function (Blueprint $table) {
             $table->dropColumn('transaction_date');
         });
     }

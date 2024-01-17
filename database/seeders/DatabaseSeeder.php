@@ -22,9 +22,6 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             CategorySeeder::class,
-            ExpenseSeeder::class,
-            ReimbursementSeeder::class,
-            GroupSeeder::class,
             FriendSeeder::class,
             SpendingSeeder::class,
 

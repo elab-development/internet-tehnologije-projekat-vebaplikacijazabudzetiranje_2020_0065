@@ -11,10 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('reimbursements', function (Blueprint $table) {
+        Schema::create('spendings', function (Blueprint $table) {
             $table->id();
+            $table->text('description');
             $table->decimal('amount', 10, 2);
-            $table->text('description')->nullable();
+            $table->decimal('refund', 8, 2);
+            $table->string('paidby');
+
+            
             $table->timestamps();
         });
     }
@@ -23,8 +27,8 @@ return new class extends Migration
      * Reverse the migrations.
      */
     public function down(): void
-    {
-        Schema::dropIfExists('reimbursements');
-        
-    }
+{
+    
+    Schema::dropIfExists('spendings');
+}
 };

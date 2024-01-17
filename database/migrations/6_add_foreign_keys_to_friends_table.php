@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('expenses', function (Blueprint $table) {
-            $table->id();
-            $table->decimal('amount', 10, 2);
-            $table->text('description');
-            $table->timestamps();
+        Schema::table('friends', function (Blueprint $table) {
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
         });
     }
 
@@ -24,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('expenses');
+        Schema::table('friends', function (Blueprint $table) {
+            $table->dropForeign(['user_id']);
+        });
     }
 };
