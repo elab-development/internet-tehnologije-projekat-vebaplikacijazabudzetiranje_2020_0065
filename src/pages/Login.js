@@ -1,47 +1,55 @@
 import styles from "./Login.module.css";
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import NavigacioniBar from "../components/NavigacioniBar";
 import Dugme from "../components/Dugme";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
 
 export default function Login() {
-  const [email, setEmail] = useState("tvoj_email@gmail.com");
-  const [password, setPassword] = useState("vasasifra");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  async function loginUser(e) {
+  const handleInput = (e) => {
+    const { name, value } = e.target;
+    if (name === "email") {
+      setEmail(value);
+    } else if (name === "password") {
+      setPassword(value);
+    }
+  };
+
+  const handleLogin = (e) => {
     e.preventDefault();
 
-    const emailU = email;
-    const passwordU = password;
     const loginPodaci = {
-      emailU,
-      passwordU,
+      email: email,
+      password: password,
     };
-    console.log(loginPodaci);
 
-    try {
-      const response = await axios.post(
-        "http://127.0.0.1:8000/login",
-        loginPodaci
-      );
-      console.log(response);
-    } catch (error) {
-      console.error("There was an error!", error);
-    }
-  }
+    axios
+      .post("http://127.0.0.1:8000/api/login", loginPodaci)
+      .then((response) => {
+        console.log(response.data);
+        if(response.data.success===true){
+          window.sessionStorage.setItem("auth_token",response.data.access_token);
+        }
+      })
+      .catch((error) => {
+        console.error("Došlo je do greške!", error);
+      });
+  };
 
   return (
     <main className={styles.main}>
       <NavigacioniBar />
-      <form className={styles.forma}>
+      <form className={styles.forma} onSubmit={handleLogin}>
         <div className={styles.polje}>
-          <label htmlFor="email">Email addresa</label>
+          <label htmlFor="email">Email adresa</label>
           <input
             type="email"
             id="email"
-            onChange={(e) => setEmail(e.target.value)}
+            name="email"
+            onChange={handleInput}
             value={email}
           />
         </div>
@@ -51,15 +59,16 @@ export default function Login() {
           <input
             type="password"
             id="password"
-            onChange={(e) => setPassword(e.target.value)}
+            name="password"
+            onChange={handleInput}
             value={password}
           />
         </div>
         <div className={styles.paragraf}>
           <label>
-            Nemas nalog?
+            Nemate nalog?
             <NavLink to="/registracija" className={styles.registracija}>
-              Registruj se sada.
+              Registrujte se sada.
             </NavLink>
           </label>
         </div>
@@ -68,3 +77,5 @@ export default function Login() {
     </main>
   );
 }
+
+
