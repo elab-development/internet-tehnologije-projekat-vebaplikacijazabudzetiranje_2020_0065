@@ -21,6 +21,8 @@ class FriendFactory extends Factory
             'balance' => $this->faker->randomFloat(2, 0, 1000),
             'email' => $this->faker->unique()->safeEmail,
             'user_id' => \App\Models\User::factory()
+
+            
         ];
     }
 }
