@@ -1,40 +1,63 @@
 import styles from "./PrijateljiDodaj.module.css";
-import React from "react";
-import { useState, useContext } from "react";
-import Button from "../components/Dugme";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
+import Button from "../components/Dugme";
 import { SelektovanPrijateljContext } from "../pages/AppLayout.js";
+import Dugme from "./Dugme.js";
 
 export default function PrijateljiDodaj() {
-  const [name, setName] = useState("username");
-  const [email, setEmail] = useState("mail@gmail.com");
-  const [image, setImage] = useState("https://picsum.photos/200");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [gifs, setGifs] = useState([]);
+  const [selectedGif, setSelectedGif] = useState(null);
 
   const { dodajPrijateljaHandler } = useContext(SelektovanPrijateljContext);
 
-  async function handleSubmit(e) {
-    e.preventDefault(); //sprecava da se stranica ponovo ucita
+  useEffect(() => {
+    if (searchTerm) {
+      const fetchGifs = async () => {
+        try {
+          const response = await axios.get(
+            `https://api.giphy.com/v1/gifs/search?api_key=UagNCjf7ln8R6fK6rchsaUBtm0cEPbpj&q=${searchTerm}&limit=10`
+          );
+          setGifs(response.data.data);
+        } catch (error) {
+          console.error("Error fetching gifs:", error);
+        }
+      };
 
-    if (!name || !image) return;
+      fetchGifs();
+    }
+  }, [searchTerm]);
+
+  const handleGifSelect = (gifUrl) => {
+    setSelectedGif(gifUrl);
+    setGifs([]);
+  };
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+
+    if (!name || !selectedGif) return;
     const noviPrijatelj = {
       name,
-      image: `${image}`,
+      image: selectedGif,
       balance: 0,
       email,
     };
+
     try {
-      const response = await axios.post(
-        "http://127.0.0.1:8000/api/friends",
-        noviPrijatelj
-      );
+      await axios.post("http://127.0.0.1:8000/api/friends", noviPrijatelj);
     } catch (error) {
       console.error("There was an error!", error);
     }
+
     dodajPrijateljaHandler(noviPrijatelj);
   }
 
   return (
-    <form className={styles.main} onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className={styles.main}>
       <label>Ime prijatelja</label>
       <input
         type="text"
@@ -44,19 +67,41 @@ export default function PrijateljiDodaj() {
 
       <label>Email prijatelja</label>
       <input
-        type="text"
+        type="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
-      <label>URL slike</label>
-      <input
-        type="text"
-        value={image}
-        onChange={(e) => setImage(e.target.value)}
-      />
-      <Button type="prijateljDodaj" onClick={handleSubmit}>
-        Dodaj
-      </Button>
+
+      <div className={styles.searchContainer}>
+        <label>Izaberi GIF kao sliku:</label>
+        <input
+          type="text"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+      </div>
+
+      <div>
+        {gifs.map((gif) => (
+          <img
+            key={gif.id}
+            src={gif.images.fixed_height.url}
+            alt="GIF"
+            onClick={() => handleGifSelect(gif.images.fixed_height.url)}
+          />
+        ))}
+      </div>
+
+      {selectedGif && (
+        <>
+          <label>Izabrani GIF</label>
+          <img src={selectedGif} alt="Izabrani GIF" />
+        </>
+      )}
+
+      <div className={styles.buttonContainer}>
+        <Dugme type="prijateljDodaj1">Dodaj</Dugme>
+      </div>
     </form>
   );
 }

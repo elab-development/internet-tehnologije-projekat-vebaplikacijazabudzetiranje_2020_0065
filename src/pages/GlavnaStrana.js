@@ -10,11 +10,11 @@ export default function GlavnaStrana() {
   const navigate = useNavigate();
 
   const handlePodeliTrosak = () => {
-    if (!accessToken) {
+    /* if (!accessToken) {
       alert("Morate biti prijavljeni da biste podelili trošak.");
       return;
     }
-    navigate("/app");
+    navigate("/app"); */
   };
 
   return (
@@ -31,14 +31,11 @@ export default function GlavnaStrana() {
           izračunaj svotu novca koju svako treba da plati, ukoliko neko nema
           sitno, plati za njega, a njemu će stići mejl koliko duguje.
         </h2>
-        <Dugme type="podeliTrosak" onClick={handlePodeliTrosak}>
+
+        <Link to="/app" className="podeliTrosak">
           Podeli trošak sada
-        </Dugme>
+        </Link>
       </section>
     </main>
   );
 }
-
-
-
-

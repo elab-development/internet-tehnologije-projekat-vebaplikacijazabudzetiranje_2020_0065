@@ -21,12 +21,12 @@
   color: RGB(230, 230, 230);
 }
 .obrisi {
-  padding: 7px;
-  padding-top: 5px;
+  padding: 5px;
+  padding-top: 2px;
   color: RGB(255, 110, 0);
   background-color: red;
-  width: 3vh;
-  height: 3vh;
+  width: 23px;
+  height: 23px;
 }
 
 .position {
@@ -43,17 +43,27 @@
 }
 
 .prijateljDugme {
+  /*color: RGB(230, 230, 230);
+  background-color: RGB(255, 110, 0);
+  /* position: fixed; 
+  left: 47vh; */
+
   color: RGB(230, 230, 230);
   background-color: RGB(255, 110, 0);
-  position: fixed;
+  /* position: fixed; */
   left: 47vh;
+  width: 100px; /* Širina dugmeta */
+  height: 40px; /* Visina dugmeta */
+  padding: 10px 15px; /* Unutrašnji prostor oko teksta (vertikalno, horizontalno) */
+  border: none; /* Uklanjanje bordera, opcionalno */
+  border-radius: 5px; /* Zaobljeni uglovi, opcionalno */
+  font-size: 16px; /* Veličina teksta, prilagodite po potrebi */
+  cursor: pointer; /* Promena kursora kada je preko dugmeta */
+  margin-left: 300px;
+  margin-block-start: -50px;
+  padding-left: 20px;
 }
-.prijateljDodaj {
-  margin-top: 7px;
-  color: RGB(230, 230, 230);
-  background-color: RGB(255, 110, 0);
-  grid-column: 2;
-}
+
 .podeliTrosak {
   margin-top: 7px;
   color: RGB(230, 230, 230);
@@ -61,7 +71,38 @@
   grid-column: 2;
 }
 .dugmePaginacija {
+  top: 100px;
   padding: 5px;
   color: RGB(255, 110, 0);
   background-color: RGB(230, 230, 230);
+}
+
+.buttonContainer {
+  display: flex; /* Postavlja elemente kao fleksibilni kontejner */
+  gap: -30px; /* Razmak između dugmadi */
+  align-items: center; /* Centrira elemente vertikalno */
+}
+
+.searchContainer {
+  display: flex;
+  /* Razmak između elemenata */
+  gap: -200px;
+  align-items: center; /* Centrira elemente vertikalno */
+}
+
+.prijateljDodaj {
+  margin-top: 15px;
+  width: 250px;
+  color: RGB(230, 230, 230);
+  background-color: RGB(255, 110, 0);
+  grid-column: 2;
+}
+
+.prijateljDodaj1 {
+  width: 250px;
+  background-color: RGB(255, 110, 0);
+  color: RGB(230, 230, 230);
+  grid-column: 2;
+  margin-left: 130px;
+  margin-top: 10px;
 }
