@@ -5,10 +5,7 @@ import Dugme from "../components/Dugme";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
 
-
-
 export default function Login() {
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState(null);
@@ -32,22 +29,21 @@ export default function Login() {
     };
 
     axios.post("http://127.0.0.1:8000/api/login", loginPodaci)
-    .then((response) => {
+      .then((response) => {
         console.log(response.data);
         if (response.data.success === true) {
-            window.sessionStorage.setItem("auth_token", response.data.access_token);
-            window.sessionStorage.setItem("user_role", response.data.role);  // Dodato čuvanje uloge
-            setIsLoggedIn(true);
-            setLoginError(null);
+          window.sessionStorage.setItem("auth_token", response.data.access_token);
+          window.sessionStorage.setItem("user_role", response.data.role);
+          window.sessionStorage.setItem("user_id", response.data.user_id);
+          window.sessionStorage.setItem("name", response.data.name); 
+          setIsLoggedIn(true);
+          setLoginError(null);
         }
-    })
-    .catch((error) => {
+      })
+      .catch((error) => {
         console.error("Došlo je do greške!", error);
         setLoginError("Pogrešan email ili lozinka.");
-    });
-
-
-  
+      });
   };
 
   return (
@@ -94,7 +90,4 @@ export default function Login() {
     </main>
   );
 }
-
-
-
 

@@ -22,7 +22,9 @@ const NavigacioniBar = () => {
         console.log(JSON.stringify(response.data));
 
         window.sessionStorage.removeItem("auth_token");
-        window.sessionStorage.removeItem("user_role"); // Dodajemo ovu liniju za brisanje uloge
+        window.sessionStorage.removeItem("user_role"); 
+        window.sessionStorage.removeItem("user_id");
+        window.sessionStorage.removeItem("name");
 
         setLogoutMessage("Uspešno ste se odjavili.");
       })
