@@ -27,8 +27,8 @@ Route::delete('/friends/{id}', [FriendController::class, 'destroy']);
         });
     
         // Prilagođene rute za koje zahtevaju autentikaciju
-        Route::delete('/expenses/{id}', [ExpenseController::class, 'destroy']);//->middleware('auth:sanctum');
-        Route::post('/expenses', [ExpenseController::class, 'store']);//->middleware('auth:sanctum');
+        Route::delete('/expenses/{id}', [ExpenseController::class, 'destroy']);
+        Route::post('/expenses', [ExpenseController::class, 'store']);
     
         // API ruta za odjavu korisnika
         Route::post('/logout', [AuthController::class, 'logout']);
@@ -45,11 +45,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 
-    // Route::delete('/expenses/{id}', [ExpenseController::class, 'destroy']);
-    // Route::post('/expenses', [ExpenseController::class, 'store']);
 
-    // Route::resource('/expenses', ExpenseController::class)->only(['index']);
     Route::resource('/users', UserController::class)->only(['index']);
 
-    //Route::get('/users/{id}/reimbursements', [UserController::class, 'showReimbursements']);
-    //Route::get('/export/expenses', [ExpenseController::class, 'exportCSV']);
