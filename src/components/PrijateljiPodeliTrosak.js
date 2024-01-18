@@ -5,14 +5,35 @@ import Dugme from "./Dugme.js";
 import { SelektovanPrijateljContext } from "../pages/AppLayout.js";
 import { useKategorije } from "../hooks/useKategorije.js";
 import axios from "axios";
+import useKonvertorValute from "../hooks/useKonvertorValute.js";
 
 function PrijateljiPodeliTrosak() {
+  const {
+    valute,
+    izabranaValuta,
+    setIzabranaValuta,
+    iznos,
+    setIznos,
+    konvertovaniIznos,
+  } = useKonvertorValute(); // Korišćenje custom hook-a
+
+  const handleConvertedAmountChange = (e) => {
+    setIznos(Number(e.target.value)); // This will now handle the amount in the selected currency
+  };
+
+  useEffect(() => {
+    if (valute.length > 0 && !izabranaValuta) {
+      // Postavljanje defaultne valute na prvu dostupnu
+      setIzabranaValuta(valute[0]);
+    }
+  }, [valute, izabranaValuta, setIzabranaValuta]);
+
   const [description, setDescription] = useState("");
   const [amount, setAmount] = useState("");
   const [category_id, setCategoryID] = useState("");
   const [transaction_date, setTransactionDate] = useState("");
   const [refund, setRefund] = useState("");
-  const prijateljDeo = amount ? amount - refund : "";
+  const prijateljDeo = konvertovaniIznos ? konvertovaniIznos - refund : "";
   const [paidby, setPaidBy] = useState("korisnik");
 
   const { selektovanPrijatelj, setPromenjeno } = useContext(
@@ -36,6 +57,7 @@ function PrijateljiPodeliTrosak() {
     }
     setPromenjeno(dug);
   }
+
   async function handleSubmit(e) {
     e.preventDefault();
 
@@ -45,7 +67,7 @@ function PrijateljiPodeliTrosak() {
     const noviRacun = {
       description,
       transaction_date,
-      amount,
+      amount: konvertovaniIznos,
       refund,
       paidby,
       user_id,
@@ -68,18 +90,39 @@ function PrijateljiPodeliTrosak() {
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
       <h2>Podeli trošak sa: {selektovanPrijatelj.name}</h2>
+
       <label>Opis troska</label>
       <input
         type="text"
         value={description}
         onChange={(e) => setDescription(e.target.value)}
       />
-      <label>Račun</label>
+      <label>Izabrana valuta</label>
+      <select
+        value={izabranaValuta}
+        onChange={(e) => setIzabranaValuta(e.target.value)}
+      >
+        {valute.length > 0 ? (
+          valute.map((valuta) => (
+            <option key={valuta} value={valuta}>
+              {valuta}
+            </option>
+          ))
+        ) : (
+          <option>Loading...</option>
+        )}
+      </select>
+
+      <label>Račun (u izabranoj valuti)</label>
+      <input type="text" value={iznos} onChange={handleConvertedAmountChange} />
+
+      <label>Konvertovani iznos u RSD</label>
       <input
         type="text"
-        value={amount}
+        value={konvertovaniIznos !== null ? konvertovaniIznos : ""}
         onChange={(e) => setAmount(Number(e.target.value))}
       />
+
       <label>Kategorija</label>
       <select
         value={category_id}
@@ -91,6 +134,7 @@ function PrijateljiPodeliTrosak() {
           </option>
         ))}
       </select>
+
       <label>Datum</label>
       <input
         type="date"
@@ -103,17 +147,21 @@ function PrijateljiPodeliTrosak() {
         value={refund}
         onChange={(e) =>
           setRefund(
-            Number(e.target.value) > amount ? refund : Number(e.target.value)
+            Number(e.target.value) > konvertovaniIznos
+              ? refund
+              : Number(e.target.value)
           )
         }
       />
       <label>Prijateljski trošak</label>
       <input type="text" disabled value={prijateljDeo} />
+
       <label>Ko je platio račun</label>
       <select value={paidby} onChange={(e) => setPaidBy(e.target.value)}>
         <option value="korisnik">Ti</option>
         <option value="prijatelj">{selektovanPrijatelj.name}</option>
       </select>
+
       <Dugme type="podeliTrosak" onClick={handleSubmit}>
         Podeli{" "}
       </Dugme>

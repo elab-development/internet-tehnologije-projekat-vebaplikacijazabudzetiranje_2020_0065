@@ -32,13 +32,13 @@ function Prijatelj({ prijatelj }) {
 
       {prijatelj.balance > 0 && (
         <p className={styles.green}>
-          {prijatelj.name} ti duguje {Math.abs(prijatelj.balance)}€
+          {prijatelj.name} ti duguje {Math.abs(prijatelj.balance)} RSD
         </p>
       )}
 
       {prijatelj.balance < 0 && (
         <p className={styles.red}>
-          Duguješ {prijatelj.name} {Math.abs(prijatelj.balance)}€
+          Duguješ {prijatelj.name} {Math.abs(prijatelj.balance)} RSD
         </p>
       )}
       <Dugme onClick={() => obrisi(prijatelj.id)} type="obrisi">

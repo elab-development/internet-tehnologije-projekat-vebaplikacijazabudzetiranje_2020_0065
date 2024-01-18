@@ -1,0 +1,5 @@
+{
+    "require": {
+        "everapi/currencyapi-php": "^1.0"
+    }
+}
