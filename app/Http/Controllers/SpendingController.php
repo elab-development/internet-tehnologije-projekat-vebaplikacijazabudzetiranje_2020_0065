@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\SpendingResources;
+use App\Http\Controllers\Controller;
+use Khill\Lavacharts\Lavacharts;
 
 class SpendingController extends Controller
 {
@@ -151,5 +153,21 @@ class SpendingController extends Controller
     
         return Response::stream($callback, 200, $headers);
     }
+
+    //Vizuelizacija podataka
+
+  
+        public function pieChart()
+        {
+            $data = \DB::table('spendings')
+                ->join('categories', 'spendings.category_id', '=', 'categories.id')
+                ->select('categories.name as category', \DB::raw('COUNT(spendings.id) as count'))
+                ->groupBy('categories.name')
+                ->get();
+        
+            return response()->json($data);
+        }
+        
+    
 }
 

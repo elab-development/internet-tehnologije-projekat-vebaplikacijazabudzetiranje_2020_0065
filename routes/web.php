@@ -52,6 +52,12 @@ Route::get('/latest_user', [UserController::class, 'showLatestUser']);
 Route::post('/import/spendings', [SpendingController::class, 'import'])->name('spendings.import');
 Route::get('/spendings/export', [SpendingController::class, 'export'])->name('spendings.export');
 
+// Vizuelizacija
+
+Route::get('/api/category-usage-chart-data', 'SpendingController@categoryUsageChartData');
+
+Route::get('/api/category-usage-chart-data', [SpendingController::class, 'pieChart'])->name('spendings.pieChart');
+
 
 
 
