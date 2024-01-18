@@ -4,6 +4,7 @@ import AppMainbar from "../components/AppMainbar";
 import styles from "./AppLayout.module.css";
 import { createContext, useState, Context, useEffect } from "react";
 import { usePrijatelji } from "../hooks/usePrijatelji.js";
+import CategoryUsageChart from "../components/CategoryUsageChart";
 
 export const SelektovanPrijateljContext = createContext();
 
@@ -49,6 +50,13 @@ export default function AppLayout() {
       <div className={styles.app}>
         <AppSidebar />
         <AppMainbar />
+      </div>
+
+      <div className="corner-container">
+        <section>
+          <h2>Procentualna raspodela korišćenja kategorija</h2>
+          <CategoryUsageChart />
+        </section>
       </div>
     </SelektovanPrijateljContext.Provider>
   );

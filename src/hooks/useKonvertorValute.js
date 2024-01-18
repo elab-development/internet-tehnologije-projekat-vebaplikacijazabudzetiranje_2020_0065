@@ -1,44 +1,51 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
 function useKonvertorValute() {
   const [valute, setValute] = useState([]);
   const [izabranaValuta, setIzabranaValuta] = useState("");
   const [iznos, setIznos] = useState(1);
-  const [konvertovaniIznos, setKonvertovaniIznos] = useState(0);
-  const API_KEY = "cur_live_fbUJogUdIP4iEoAG9MQlMt4mZg4J40zSD7KkPGzG"; // Replace with your actual API key
+  const [konvertovaniIznos, setKonvertovaniIznos] = useState({});
+  const API_KEY = "8c878be87e7e8f06690a99e7"; // Replace with your actual API key
+  const BASE_CURRENCY = "USD"; // Replace with the base currency you want
 
-  // Fetching the list of available currencies
+  // Fetch the list of available currencies and their conversion rates
   useEffect(() => {
     axios
-      .get(`https://api.currencyapi.com/v3/currencies?apikey=${API_KEY}`)
+      .get(
+        `https://v6.exchangerate-api.com/v6/${API_KEY}/latest/${BASE_CURRENCY}`
+      )
       .then((response) => {
-        const fetchedValute = Object.keys(response.data.data);
-        setValute(fetchedValute);
-        if (fetchedValute.length > 0) {
-          setIzabranaValuta(fetchedValute[0]); // Set the default selected currency
+        const data = response.data;
+        if (data.result === "success") {
+          const rates = { ...data.conversion_rates };
+          delete rates[BASE_CURRENCY]; // Remove the base currency from the list
+          setValute(Object.keys(rates));
+        } else {
+          console.error("Error loading currency data:", data["error-type"]);
         }
       })
       .catch((error) => console.error("Error loading currency list", error));
   }, []);
 
-  // Fetching the conversion rate for the selected currency to RSD
+  // Fetch the conversion rates for the selected currency
   useEffect(() => {
     if (izabranaValuta) {
       axios
         .get(
-          `https://api.currencyapi.com/v3/latest?base_currency=${izabranaValuta}&apikey=${API_KEY}`
+          `https://v6.exchangerate-api.com/v6/${API_KEY}/latest/${izabranaValuta}`
         )
         .then((response) => {
-          const rate = response.data.data["RSD"].value; // Assuming RSD is in the response
-          const iznosZaokruzeno = parseFloat((iznos * rate).toFixed(4));
-          setKonvertovaniIznos(iznosZaokruzeno);
-
-          /* setKonvertovaniIznos(iznos * rate).toFixed(4); */
+          const data = response.data;
+          if (data.result === "success") {
+            setKonvertovaniIznos(data.conversion_rates);
+          } else {
+            console.error("Error converting currency:", data["error-type"]);
+          }
         })
         .catch((error) => console.error("Error converting currency", error));
     }
-  }, [izabranaValuta, iznos]);
+  }, [izabranaValuta]);
 
   return {
     valute,

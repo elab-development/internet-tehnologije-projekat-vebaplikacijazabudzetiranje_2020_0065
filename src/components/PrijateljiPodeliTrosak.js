@@ -36,7 +36,6 @@ function PrijateljiPodeliTrosak() {
     }
     setPromenjeno(dug);
   }
-
   async function handleSubmit(e) {
     e.preventDefault();
 

@@ -1,7 +1,6 @@
 import styles from "./Contact.module.css";
 import React from "react";
 import NavigacioniBar from "../components/NavigacioniBar";
-import CategoryUsageChart from "../components/CategoryUsageChart"; // Uvezite komponentu
 
 export default function Contact() {
   return (
@@ -24,12 +23,6 @@ export default function Contact() {
             zajedničkom cilju efikasnog upravljanja grupnim troškovima."
           </p>
         </div>
-      </section>
-
-      {/* Dodajte komponentu za prikaz Pie Chart-a */}
-      <section>
-        <h2>Procentualna raspodela korišćenja kategorija</h2>
-        <CategoryUsageChart />
       </section>
     </main>
   );
