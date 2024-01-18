@@ -20,9 +20,10 @@ const NavigacioniBar = () => {
     axios(config)
       .then(function (response) {
         console.log(JSON.stringify(response.data));
-       
+
         window.sessionStorage.removeItem("auth_token");
-        
+        window.sessionStorage.removeItem("user_role"); // Dodajemo ovu liniju za brisanje uloge
+
         setLogoutMessage("Uspešno ste se odjavili.");
       })
       .catch(function (error) {
@@ -62,6 +63,7 @@ const NavigacioniBar = () => {
 };
 
 export default NavigacioniBar;
+
 
 
 

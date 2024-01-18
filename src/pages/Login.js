@@ -5,11 +5,14 @@ import Dugme from "../components/Dugme";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
 
+
+
 export default function Login() {
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loginError, setLoginError] = useState(null); // Dodato stanje za prikazivanje greške
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Dodato stanje za praćenje statusa prijave
+  const [loginError, setLoginError] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleInput = (e) => {
     const { name, value } = e.target;
@@ -28,20 +31,23 @@ export default function Login() {
       password: password,
     };
 
-    axios
-      .post("http://127.0.0.1:8000/api/login", loginPodaci)
-      .then((response) => {
+    axios.post("http://127.0.0.1:8000/api/login", loginPodaci)
+    .then((response) => {
         console.log(response.data);
         if (response.data.success === true) {
-          window.sessionStorage.setItem("auth_token", response.data.access_token);
-          setIsLoggedIn(true); // Postavljanje stanja da je korisnik prijavljen
-          setLoginError(null); // Resetovanje stanja za prikazivanje greške
+            window.sessionStorage.setItem("auth_token", response.data.access_token);
+            window.sessionStorage.setItem("user_role", response.data.role);  // Dodato čuvanje uloge
+            setIsLoggedIn(true);
+            setLoginError(null);
         }
-      })
-      .catch((error) => {
+    })
+    .catch((error) => {
         console.error("Došlo je do greške!", error);
-        setLoginError("Pogrešan email ili lozinka."); // Postavljanje stanja za prikazivanje greške
-      });
+        setLoginError("Pogrešan email ili lozinka.");
+    });
+
+
+  
   };
 
   return (
@@ -49,11 +55,9 @@ export default function Login() {
       <NavigacioniBar />
       <form className={styles.forma} onSubmit={handleLogin}>
         {isLoggedIn ? (
-          // Prikaz obaveštenja ako je korisnik prijavljen
           <div className={styles.obavestenje}>Uspešno ste prijavljeni!</div>
         ) : null}
         {loginError ? (
-          // Prikaz greške ako postoji
           <div className={styles.greska}>{loginError}</div>
         ) : null}
         <div className={styles.polje}>
@@ -90,6 +94,7 @@ export default function Login() {
     </main>
   );
 }
+
 
 
 

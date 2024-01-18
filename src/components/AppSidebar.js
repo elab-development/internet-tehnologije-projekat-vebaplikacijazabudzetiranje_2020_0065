@@ -30,6 +30,8 @@ export default function AppSidebar() {
     setOtvoriFormu((prikazi) => !prikazi);
   }
 
+  const userRole = window.sessionStorage.getItem("user_role");
+
   return (
     <div className={styles.sidebar}>
       <Logo type="appLogo" />
@@ -41,13 +43,17 @@ export default function AppSidebar() {
         velicinaStrane={velicinaStrane}
       />
 
-      {otvoriFormu && <PrijateljiDodaj />}
+      {userRole !== "guest" && otvoriFormu && <PrijateljiDodaj />}
 
-      <Dugme type="prijateljDodaj" onClick={otvoriFormuHandler}>
-        {otvoriFormu ? "Zatvori" : "Dodaj prijatelja"}
-      </Dugme>
+      {userRole !== "guest" && (
+        <Dugme type="prijateljDodaj" onClick={otvoriFormuHandler}>
+          {otvoriFormu ? "Zatvori" : "Dodaj prijatelja"}
+        </Dugme>
+      )}
 
       <Footer />
     </div>
   );
 }
+
+

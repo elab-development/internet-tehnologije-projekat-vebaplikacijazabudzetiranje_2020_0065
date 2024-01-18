@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import styles from "../components/Prijatelj.module.css";
 import Dugme from "./Dugme";
-import { useContext } from "react";
 import { SelektovanPrijateljContext } from "../pages/AppLayout.js";
 import axios from "axios";
 
@@ -12,6 +11,8 @@ function Prijatelj({ prijatelj }) {
   const { onSelektuj } = useContext(SelektovanPrijateljContext);
 
   const selektovan = selektovanPrijatelj?.id === prijatelj.id;
+  const userRole = window.sessionStorage.getItem("user_role");
+  const isGuest = userRole === "guest";
 
   async function obrisi(id) {
     try {
@@ -24,6 +25,7 @@ function Prijatelj({ prijatelj }) {
     }
     setPromenjeno(id);
   }
+
   return (
     <li className={styles.prijatelj}>
       <img src={prijatelj.image} alt={prijatelj.name} />
@@ -32,22 +34,30 @@ function Prijatelj({ prijatelj }) {
 
       {prijatelj.balance > 0 && (
         <p className={styles.green}>
-          {prijatelj.name} ti duguje {Math.abs(prijatelj.balance)}€
+          {prijatelj.name} ti duguje {Math.abs(prijatelj.balance)} RSD
         </p>
       )}
 
       {prijatelj.balance < 0 && (
         <p className={styles.red}>
-          Duguješ {prijatelj.name} {Math.abs(prijatelj.balance)}€
+          Duguješ {prijatelj.name} {Math.abs(prijatelj.balance)} RSD
         </p>
       )}
-      <Dugme onClick={() => obrisi(prijatelj.id)} type="obrisi">
-        X
-      </Dugme>
-      <Dugme onClick={() => onSelektuj(prijatelj)} type="prijateljDugme">
-        {selektovan ? "Zatvori" : "Izaberi"}
-      </Dugme>
+
+      {!isGuest && (
+        <>
+          <Dugme onClick={() => obrisi(prijatelj.id)} type="obrisi">
+            X
+          </Dugme>
+          <Dugme onClick={() => onSelektuj(prijatelj)} type="prijateljDugme">
+            {selektovan ? "Zatvori" : "Izaberi"}
+          </Dugme>
+        </>
+      )}
     </li>
   );
 }
+
 export default Prijatelj;
+
+
