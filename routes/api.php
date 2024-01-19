@@ -26,11 +26,11 @@ Route::delete('/friends/{id}', [FriendController::class, 'destroy']);
             return auth()->user();
         });
     
-        // Prilagođene rute za koje zahtevaju autentikaciju
+       
         Route::delete('/expenses/{id}', [ExpenseController::class, 'destroy']);
         Route::post('/expenses', [ExpenseController::class, 'store']);
     
-        // API ruta za odjavu korisnika
+        
         Route::post('/logout', [AuthController::class, 'logout']);
     });
     
@@ -47,4 +47,3 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
     Route::resource('/users', UserController::class)->only(['index']);
-
