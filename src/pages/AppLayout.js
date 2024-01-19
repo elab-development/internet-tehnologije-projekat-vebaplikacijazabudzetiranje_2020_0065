@@ -13,6 +13,12 @@ export default function AppLayout() {
   const { prijatelji, setPrijatelji, promenjeno, setPromenjeno } =
     usePrijatelji("http://127.0.0.1:8000/api/friends");
 
+  
+  const userRole = window.sessionStorage.getItem("user_role");
+
+  
+  const isAdmin = userRole === "admin";
+
   if (!prijatelji) {
     return <div>Podaci se ucitavaju...</div>;
   }
@@ -22,6 +28,7 @@ export default function AppLayout() {
       trenutni?.id === prijatelj.id ? null : prijatelj
     );
   }
+
   function podeliRacun(vrednost) {
     setPrijatelji((prijatelji) =>
       prijatelji.map((prijatelj) =>
@@ -33,9 +40,11 @@ export default function AppLayout() {
 
     setSelectovanPrijatelj(null);
   }
+
   function dodajPrijateljaHandler(prijatelj) {
-    setPrijatelji((prijatelji) => [...prijatelji, prijatelj]); //raspakuje prijatelji i dodaje novog na kraju
+    setPrijatelji((prijatelji) => [...prijatelji, prijatelj]);
   }
+
   return (
     <SelektovanPrijateljContext.Provider
       value={{
@@ -50,19 +59,16 @@ export default function AppLayout() {
       <div className={styles.app}>
         <AppSidebar />
         <AppMainbar />
-        <section className={styles.corner}>
-          <h2>Procentualna raspodela korišćenja kategorija</h2>
-          <CategoryUsageChart />
-        </section>
+       
+        {isAdmin && (
+          <section className={styles.corner}>
+            <h2>Procentualna raspodela korišćenja kategorija</h2>
+            <CategoryUsageChart />
+          </section>
+        )}
       </div>
     </SelektovanPrijateljContext.Provider>
   );
 }
-/*
-<div id="corner">
-        <section>
-          <h2>Procentualna raspodela korišćenja kategorija</h2>
-          <CategoryUsageChart />
-        </section>
-      </div> 
-      */
+
+

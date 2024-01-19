@@ -27,7 +27,6 @@ function PrijateljiPodeliTrosak() {
   }, [valute, izabranaValuta, setIzabranaValuta]);
 
   const [description, setDescription] = useState("");
-  const [amount, setAmount] = useState("");
   const [category_id, setCategoryID] = useState("");
   const [transaction_date, setTransactionDate] = useState("");
   const [refund, setRefund] = useState("");
@@ -54,7 +53,7 @@ function PrijateljiPodeliTrosak() {
       );
       console.log(response.data);
     } catch (error) {
-      console.error("There was an error updating the data!", error);
+      console.error("Došlo je do greške prilikom ažuriranja podataka!", error);
     }
     setPromenjeno(dug);
   }
@@ -63,18 +62,20 @@ function PrijateljiPodeliTrosak() {
     e.preventDefault();
 
     console.log("Submitting form...");
-    /*
-   if (!amount || !refund || !category_id || !transaction_date) {
+    console.log("Amount:", konvertovaniIznos.RSD);
+    console.log("Refund:", refund);
+    console.log("Category ID:", category_id);
+    console.log("Transaction Date:", transaction_date);
+
+    // Provera validnosti
+    if (!konvertovaniIznos.RSD || !refund || !category_id || !transaction_date) {
       console.log("Validation failed: Some required fields are missing.");
       return;
-    } 
-*/
-    //const user_id = selektovanPrijatelj.id;
+    }
 
     const user_id = window.sessionStorage.getItem("user_id");
     const name = window.sessionStorage.getItem("name");
 
-    // Ažuriraj vrednost paidby pre slanja na server
     const updatedPaidBy =
       paidby === "korisnik" ? name : selektovanPrijatelj.name;
 
@@ -83,16 +84,16 @@ function PrijateljiPodeliTrosak() {
       transaction_date,
       amount: konvertovaniIznos.RSD,
       refund,
-      paidby: updatedPaidBy, // Ažurirana vrednost paidby
-      user_id, // Koristi user_id za kreiranje spending-a
+      paidby: updatedPaidBy,
+      user_id,
       category_id,
     };
-    console.log("Novi racun:", noviRacun); // Log the new transaction object
+    console.log("Novi racun:", noviRacun);
 
     try {
-      console.log("Sending POST request to server...");
+      console.log("Šaljem POST zahtev serveru...");
       const response = await axios.post(
-        // "http://127.0.0.1:8000/api/spendings",
+        "http://127.0.0.1:8000/api/spendings",
         noviRacun,
         {
           headers: {
@@ -113,7 +114,6 @@ function PrijateljiPodeliTrosak() {
       return;
     }
 
-    // Koristi friend_id za update dugovanja
     podeliDug(
       updatedPaidBy === name ? prijateljDeo : -refund,
       selektovanPrijatelj.id
@@ -155,7 +155,7 @@ function PrijateljiPodeliTrosak() {
             ? konvertovaniIznos.RSD
             : ""
         }
-        onChange={(e) => setAmount(Number(e.target.value))}
+        onChange={(e) => setIznos(Number(e.target.value))}
       />
       <label>Kategorija</label>
       <select
@@ -202,3 +202,7 @@ function PrijateljiPodeliTrosak() {
 }
 
 export default PrijateljiPodeliTrosak;
+
+
+
+
