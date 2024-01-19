@@ -19,6 +19,7 @@ Route::put('/friends/{id}/{dug}', [FriendController::class, 'update']);
 
 Route::delete('/friends/{id}', [FriendController::class, 'destroy']);
 
+Route::get('/api/friends/paginate', [FriendController::class, 'paginateFriends']);
 
 
     Route::group(['middleware' => ['auth:sanctum']], function () {

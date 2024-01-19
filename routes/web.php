@@ -58,7 +58,7 @@ Route::get('/api/category-usage-chart-data', 'SpendingController@categoryUsageCh
 
 Route::get('/api/category-usage-chart-data', [SpendingController::class, 'pieChart'])->name('spendings.pieChart');
 
-
+Route::get('/api/friends/paginate', [FriendController::class, 'paginateFriends']);
 
 
 // Route::get('/import', [ExpenseController::class, 'showImportForm'])->name('import.form');
