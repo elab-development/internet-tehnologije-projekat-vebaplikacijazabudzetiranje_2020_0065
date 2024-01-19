@@ -50,10 +50,7 @@ export default function AppLayout() {
       <div className={styles.app}>
         <AppSidebar />
         <AppMainbar />
-      </div>
-
-      <div className="corner-container">
-        <section>
+        <section className={styles.corner}>
           <h2>Procentualna raspodela korišćenja kategorija</h2>
           <CategoryUsageChart />
         </section>
@@ -61,3 +58,11 @@ export default function AppLayout() {
     </SelektovanPrijateljContext.Provider>
   );
 }
+/*
+<div id="corner">
+        <section>
+          <h2>Procentualna raspodela korišćenja kategorija</h2>
+          <CategoryUsageChart />
+        </section>
+      </div> 
+      */

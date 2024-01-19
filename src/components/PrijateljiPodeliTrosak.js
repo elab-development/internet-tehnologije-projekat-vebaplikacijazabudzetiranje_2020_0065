@@ -32,7 +32,6 @@ function PrijateljiPodeliTrosak() {
   const [transaction_date, setTransactionDate] = useState("");
   const [refund, setRefund] = useState("");
   const [paidby, setPaidBy] = useState("korisnik");
-  //const [prijateljDeo, setPrijateljDeo] = useState(""); // Dodatno stanje za prijateljDeo
 
   const prijateljDeo = konvertovaniIznos.RSD
     ? konvertovaniIznos.RSD - refund
@@ -70,7 +69,15 @@ function PrijateljiPodeliTrosak() {
       return;
     } 
 */
-    const user_id = selektovanPrijatelj.id;
+    //const user_id = selektovanPrijatelj.id;
+
+    const user_id = window.sessionStorage.getItem("user_id");
+    const name = window.sessionStorage.getItem("name");
+
+    // Ažuriraj vrednost paidby pre slanja na server
+    const updatedPaidBy =
+      paidby === "korisnik" ? name : selektovanPrijatelj.name;
+
     const noviRacun = {
       description,
       transaction_date,
@@ -81,26 +88,36 @@ function PrijateljiPodeliTrosak() {
       category_id,
     };
     console.log("Novi racun:", noviRacun); // Log the new transaction object
-    /*
+
     try {
       console.log("Sending POST request to server...");
       const response = await axios.post(
         // "http://127.0.0.1:8000/api/spendings",
-        noviRacun
+        noviRacun,
+        {
+          headers: {
+            Authorization: `Bearer ${window.sessionStorage.getItem(
+              "auth_token"
+            )}`,
+          },
+        }
       );
-      console.log("Response from server:", response);
-*/
-    if (paidby === "korisnik") {
-      console.log("Paying user's share to friend...");
-      podeliDug(prijateljDeo, user_id);
-    } else {
-      console.log("Paying friend's share to user...");
-      podeliDug(-refund, user_id);
+      console.log("Uspešno dodat novi trošak:", response.data);
+      alert("Uspešno dodat novi trošak!");
+    } catch (error) {
+      console.error("Došlo je do greške prilikom slanja zahteva:", error);
+      console.log("Detalji greške:", error.response.data);
+      alert(
+        `Došlo je do greške prilikom slanja zahteva: ${error.response.data.message}`
+      );
+      return;
     }
-    /* } catch (error) {
-      console.error("There was an error!", error);
-    }
-    */
+
+    // Koristi friend_id za update dugovanja
+    podeliDug(
+      updatedPaidBy === name ? prijateljDeo : -refund,
+      selektovanPrijatelj.id
+    );
   }
 
   return (

@@ -1,4 +1,4 @@
-.app {
+/*.app {
   height: 100vh;
   padding: 30px 50px;
   overscroll-behavior-y: none;
@@ -14,10 +14,30 @@
 }
 
 .corner-container {
-  position: fixed;
-  bottom: 40px;
   right: 100px;
   margin-left: 100px;
   margin-right: 100px;
-  margin: 50px; /* Add margin for spacing */
+  margin: 3000px; /* Add margin for spacing 
+  margin-top: 5000px;
+}  */
+
+.app {
+  height: 100vh;
+  padding: 30px 50px;
+  overscroll-behavior-y: none;
+  display: flex;
+  position: relative;
+  background-image: linear-gradient(
+      rgba(36, 42, 46, 0.8),
+      rgba(36, 42, 46, 0.8)
+    ),
+    url("finish5.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+.corner {
+  position: relative;
+  width: max-content;
+  bottom: 0; /* Postavite na dno .app-a */
 }
