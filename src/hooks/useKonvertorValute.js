@@ -6,23 +6,20 @@ function useKonvertorValute() {
   const [izabranaValuta, setIzabranaValuta] = useState("");
   const [iznos, setIznos] = useState(1);
   const [konvertovaniIznos, setKonvertovaniIznos] = useState({});
-  const API_KEY = "8c878be87e7e8f06690a99e7"; // Replace with your actual API key
-  const BASE_CURRENCY = "USD"; // Replace with the base currency you want
+  const API_KEY = "8c878be87e7e8f06690a99e7"; // Zamenite sa svojim stvarnim API ključem
 
   // Fetch the list of available currencies and their conversion rates
   useEffect(() => {
     axios
-      .get(
-        `https://v6.exchangerate-api.com/v6/${API_KEY}/latest/${BASE_CURRENCY}`
-      )
+      .get(`https://v6.exchangerate-api.com/v6/${API_KEY}/latest/RSD`)
       .then((response) => {
         const data = response.data;
-        if (data.result === "success") {
-          const rates = { ...data.conversion_rates };
-          delete rates[BASE_CURRENCY]; // Remove the base currency from the list
-          setValute(Object.keys(rates));
-        } else {
-          console.error("Error loading currency data:", data["error-type"]);
+        if (data && data.conversion_rates) {
+          const fetchedValute = Object.keys(data.conversion_rates);
+          setValute(fetchedValute);
+          if (fetchedValute.length > 0) {
+            setIzabranaValuta(fetchedValute[0]); // Set the default selected currency
+          }
         }
       })
       .catch((error) => console.error("Error loading currency list", error));
@@ -33,19 +30,22 @@ function useKonvertorValute() {
     if (izabranaValuta) {
       axios
         .get(
-          `https://v6.exchangerate-api.com/v6/${API_KEY}/latest/${izabranaValuta}`
+          `https://v6.exchangerate-api.com/v6/${API_KEY}/pair/${izabranaValuta}/RSD`
         )
         .then((response) => {
           const data = response.data;
-          if (data.result === "success") {
-            setKonvertovaniIznos(data.conversion_rates);
-          } else {
-            console.error("Error converting currency:", data["error-type"]);
+          if (data && data.conversion_rate) {
+            const rate = data.conversion_rate;
+            const iznosZaokruzeno = parseFloat((iznos * rate).toFixed(4));
+            const konvertovaniIznosObj = {
+              RSD: iznosZaokruzeno,
+            };
+            setKonvertovaniIznos(konvertovaniIznosObj);
           }
         })
         .catch((error) => console.error("Error converting currency", error));
     }
-  }, [izabranaValuta]);
+  }, [izabranaValuta, iznos]);
 
   return {
     valute,

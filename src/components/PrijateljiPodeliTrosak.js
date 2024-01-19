@@ -1,19 +1,42 @@
-import React from "react";
-import { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import styles from "../components/PrijateljiPodeliTrosak.module.css";
 import Dugme from "./Dugme.js";
 import { SelektovanPrijateljContext } from "../pages/AppLayout.js";
 import { useKategorije } from "../hooks/useKategorije.js";
 import axios from "axios";
+import useKonvertorValute from "../hooks/useKonvertorValute.js";
 
 function PrijateljiPodeliTrosak() {
+  const {
+    valute,
+    izabranaValuta,
+    setIzabranaValuta,
+    iznos,
+    setIznos,
+    konvertovaniIznos,
+  } = useKonvertorValute();
+
+  const handleConvertedAmountChange = (e) => {
+    setIznos(Number(e.target.value));
+  };
+
+  useEffect(() => {
+    if (valute.length > 0 && !izabranaValuta) {
+      setIzabranaValuta(valute[0]);
+    }
+  }, [valute, izabranaValuta, setIzabranaValuta]);
+
   const [description, setDescription] = useState("");
   const [amount, setAmount] = useState("");
   const [category_id, setCategoryID] = useState("");
   const [transaction_date, setTransactionDate] = useState("");
   const [refund, setRefund] = useState("");
-  const prijateljDeo = amount ? amount - refund : "";
   const [paidby, setPaidBy] = useState("korisnik");
+  //const [prijateljDeo, setPrijateljDeo] = useState(""); // Dodatno stanje za prijateljDeo
+
+  const prijateljDeo = konvertovaniIznos.RSD
+    ? konvertovaniIznos.RSD - refund
+    : "";
 
   const { selektovanPrijatelj, setPromenjeno } = useContext(
     SelektovanPrijateljContext
@@ -36,50 +59,48 @@ function PrijateljiPodeliTrosak() {
     }
     setPromenjeno(dug);
   }
+
   async function handleSubmit(e) {
     e.preventDefault();
 
-    if (!amount || !refund || !category_id || !transaction_date) return;
-
-    const user_id = window.sessionStorage.getItem("user_id");
-    const name = window.sessionStorage.getItem("name");
-
-    // Ažuriraj vrednost paidby pre slanja na server
-    const updatedPaidBy = paidby === "korisnik" ? name : selektovanPrijatelj.name;
-
+    console.log("Submitting form...");
+    /*
+   if (!amount || !refund || !category_id || !transaction_date) {
+      console.log("Validation failed: Some required fields are missing.");
+      return;
+    } 
+*/
+    const user_id = selektovanPrijatelj.id;
     const noviRacun = {
       description,
       transaction_date,
-      amount,
+      amount: konvertovaniIznos.RSD,
       refund,
       paidby: updatedPaidBy, // Ažurirana vrednost paidby
       user_id, // Koristi user_id za kreiranje spending-a
       category_id,
     };
-
+    console.log("Novi racun:", noviRacun); // Log the new transaction object
+    /*
     try {
+      console.log("Sending POST request to server...");
       const response = await axios.post(
-        "http://127.0.0.1:8000/api/spendings",
-        noviRacun,
-        {
-          headers: {
-            Authorization: `Bearer ${window.sessionStorage.getItem("auth_token")}`,
-          },
-        }
+        // "http://127.0.0.1:8000/api/spendings",
+        noviRacun
       );
-      console.log("Uspešno dodat novi trošak:", response.data);
-      alert("Uspešno dodat novi trošak!");
-    } catch (error) {
-      console.error("Došlo je do greške prilikom slanja zahteva:", error);
-      console.log("Detalji greške:", error.response.data);
-      alert(
-        `Došlo je do greške prilikom slanja zahteva: ${error.response.data.message}`
-      );
-      return;
+      console.log("Response from server:", response);
+*/
+    if (paidby === "korisnik") {
+      console.log("Paying user's share to friend...");
+      podeliDug(prijateljDeo, user_id);
+    } else {
+      console.log("Paying friend's share to user...");
+      podeliDug(-refund, user_id);
     }
-
-    // Koristi friend_id za update dugovanja
-    podeliDug(updatedPaidBy === name ? prijateljDeo : -refund, selektovanPrijatelj.id);
+    /* } catch (error) {
+      console.error("There was an error!", error);
+    }
+    */
   }
 
   return (
@@ -91,10 +112,32 @@ function PrijateljiPodeliTrosak() {
         value={description}
         onChange={(e) => setDescription(e.target.value)}
       />
-      <label>Račun</label>
+      <label>Izabrana valuta</label>
+      <select
+        value={izabranaValuta}
+        onChange={(e) => setIzabranaValuta(e.target.value)}
+      >
+        {valute.length > 0 ? (
+          valute.map((valuta) => (
+            <option key={valuta} value={valuta}>
+              {valuta}
+            </option>
+          ))
+        ) : (
+          <option>Loading...</option>
+        )}
+      </select>
+      <label>Račun (u izabranoj valuti)</label>
+      <input type="text" value={iznos} onChange={handleConvertedAmountChange} />
+
+      <label>Konvertovani iznos u RSD</label>
       <input
         type="text"
-        value={amount}
+        value={
+          konvertovaniIznos.RSD !== null && !isNaN(konvertovaniIznos.RSD)
+            ? konvertovaniIznos.RSD
+            : ""
+        }
         onChange={(e) => setAmount(Number(e.target.value))}
       />
       <label>Kategorija</label>
@@ -120,23 +163,25 @@ function PrijateljiPodeliTrosak() {
         value={refund}
         onChange={(e) =>
           setRefund(
-            Number(e.target.value) > amount ? refund : Number(e.target.value)
+            Number(e.target.value) > konvertovaniIznos.RSD
+              ? refund
+              : Number(e.target.value)
           )
         }
       />
       <label>Prijateljski trošak</label>
-      <input type="text" disabled value={prijateljDeo} />
+      <input type="text" readOnly value={prijateljDeo} />
       <label>Ko je platio račun</label>
       <select value={paidby} onChange={(e) => setPaidBy(e.target.value)}>
         <option value="korisnik">Ti</option>
         <option value="prijatelj">{selektovanPrijatelj.name}</option>
       </select>
+
       <Dugme type="podeliTrosak" onClick={handleSubmit}>
-        Podeli{" "}
+        Podeli
       </Dugme>
     </form>
   );
 }
 
 export default PrijateljiPodeliTrosak;
-
