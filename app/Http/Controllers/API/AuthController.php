@@ -16,7 +16,7 @@ class AuthController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8',
-            'role' => 'required|in:admin,user,guest', // Dodato polje za ulogu
+            'role' => 'required|in:admin,user,guest',
         ]);
     
         if ($validator->fails()) {
@@ -55,9 +55,12 @@ class AuthController extends Controller
             'message' => 'Hi, '.$user->name.', welcome to home',
             'access_token' => $token,
             'token_type' => 'Bearer',
-            'role' => $user->role,  // Dodatni podatak o ulozi korisnika
+            'role' => $user->role,
+            'user_id' => $user->id,
+            'name'=>$user->name
         ]);
     }
+    
     
     
 

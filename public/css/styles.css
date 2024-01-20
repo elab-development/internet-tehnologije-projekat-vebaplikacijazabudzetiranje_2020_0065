@@ -1,0 +1,100 @@
+/* public/css/styles.css */
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background: linear-gradient(to right, #333, #f39422); /* Gradijent crne i narandžaste boje */
+    color: #fff; /* Bela */
+  }
+  
+  .container {
+    background-color: rgba(255, 255, 255, 0.9); /* Bela sa providnošću */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .upload-form {
+    text-align: center;
+  }
+  
+  .custom-file-upload,
+  .upload-button {
+    display: inline-block;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .custom-file-upload {
+    background-color: #f39422; /* Narandžasta */
+    color: #fff; /* Bela */
+    border: 2px solid #f39422; /* Narandžasta */
+  }
+  
+  .custom-file-upload:hover {
+    background-color: #333; /* Tamnija crna */
+  }
+  
+  .upload-button {
+    background-color: #333; /* Crna */
+    color: #fff; /* Bela */
+    border: 2px solid #333; /* Crna */
+  }
+  
+  .upload-button:hover {
+    background-color: #f39422; /* Narandžasta */
+  }
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    color: #333;
+}
+
+.gallery-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.gallery-image {
+    max-width: 100%;
+    height: auto;
+    margin: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+    cursor: pointer;
+}
+
+.gallery-image:hover {
+    transform: scale(1.05);
+}  
+
+
+.custom-file-upload {
+    display: inline-block;
+    cursor: pointer;
+    padding: 10px 20px;
+    background-color: #FFA500;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.hidden-input {
+    display: none;
+}
+
+  

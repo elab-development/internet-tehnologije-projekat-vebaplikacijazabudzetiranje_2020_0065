@@ -50,7 +50,7 @@ public function store(Request $request)
         $friend->balance = $request->query('balance', $friend->balance) + $dug;
         $friend->email = $request->query('email', $friend->email);
 
-        // Additional validation can be performed here
+      
 
         $friend->save();
 

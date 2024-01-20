@@ -39,7 +39,6 @@ class SpendingController extends Controller
     public function store(Request $request)
     {
         $spendings = new Spending();
-        $spendings->id = $request->input('id');
         $spendings->description = $request->input('description');
         $spendings->transaction_date = $request->input('transaction_date');
         $spendings->amount = $request->input('amount');
@@ -48,11 +47,10 @@ class SpendingController extends Controller
         $spendings->user_id = $request->input('user_id');
         $spendings->category_id = $request->input('category_id');
         $spendings->save();
-
-        
-
+    
         return response()->json(['message' => 'Spending successfully created']);
     }
+    
 
     /**
      * Display the specified resource.
@@ -170,4 +168,3 @@ class SpendingController extends Controller
         
     
 }
-
