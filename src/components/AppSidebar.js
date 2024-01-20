@@ -36,21 +36,16 @@ export default function AppSidebar() {
     <div className={styles.sidebar}>
       <Logo type="appLogo" />
 
-      <SearchBar search={search} setSearch={setSearch} />
-
       <PrijateljiListaPaginacija
         prijatelji={filteredPrijatelji}
         velicinaStrane={velicinaStrane}
       />
-
       {userRole !== "guest" && otvoriFormu && <PrijateljiDodaj />}
-
       {userRole !== "guest" && (
         <Dugme type="prijateljDodaj" onClick={otvoriFormuHandler}>
           {otvoriFormu ? "Zatvori" : "Dodaj prijatelja"}
         </Dugme>
       )}
-
       <Footer />
     </div>
   );
