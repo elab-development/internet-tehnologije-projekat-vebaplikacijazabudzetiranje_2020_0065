@@ -74,13 +74,25 @@ public function destroy($id)
     public function paginateFriends(Request $request)
     {
         try {
-            $perPage = $request->input('per_page', 3); // željeni broj prijatelja po stranici
-            $friends = Friend::paginate($perPage);
+            $perPage = $request->input('per_page', 3); 
+            $searchTerm = $request->input('search', ''); 
+    
+            
+            $query = Friend::query();
+    
+            if (!empty($searchTerm)) {
+                
+                $query->where('name', 'like', '%' . $searchTerm . '%');
+            }
+    
+            $friends = $query->paginate($perPage);
+    
             return FriendResource::collection($friends);
         } catch (\Exception $e) {
             return response()->json(['message' => 'Error occurred while trying to paginate friends.', 'error' => $e->getMessage()], 500);
         }
     }
+    
 
 
 }
