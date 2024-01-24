@@ -68,7 +68,12 @@ function PrijateljiPodeliTrosak() {
     console.log("Transaction Date:", transaction_date);
 
     // Provera validnosti
-    if (!konvertovaniIznos.RSD || !refund || !category_id || !transaction_date) {
+    if (
+      !konvertovaniIznos.RSD ||
+      !refund ||
+      !category_id ||
+      !transaction_date
+    ) {
       console.log("Validation failed: Some required fields are missing.");
       return;
     }
@@ -202,7 +207,3 @@ function PrijateljiPodeliTrosak() {
 }
 
 export default PrijateljiPodeliTrosak;
-
-
-
-

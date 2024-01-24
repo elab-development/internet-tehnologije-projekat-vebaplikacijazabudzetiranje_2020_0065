@@ -1,7 +1,6 @@
 import styles from "./PrijateljiDodaj.module.css";
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import Button from "../components/Dugme";
 import { SelektovanPrijateljContext } from "../pages/AppLayout.js";
 import Dugme from "./Dugme.js";
 
@@ -12,7 +11,14 @@ export default function PrijateljiDodaj() {
   const [gifs, setGifs] = useState([]);
   const [selectedGif, setSelectedGif] = useState(null);
 
-  const { dodajPrijateljaHandler } = useContext(SelektovanPrijateljContext);
+  const { dodajPrijateljaHandler, prijatelji } = useContext(
+    SelektovanPrijateljContext
+  );
+
+  useEffect(() => {
+    console.log("Prijatelji su ažurirani!", prijatelji);
+    // Osvježite lokalne podatke ili izvršite druge akcije po potrebi
+  }, [prijatelji]);
 
   useEffect(() => {
     if (searchTerm) {
@@ -40,6 +46,7 @@ export default function PrijateljiDodaj() {
     e.preventDefault();
 
     if (!name || !selectedGif) return;
+
     const noviPrijatelj = {
       name,
       image: selectedGif,
@@ -49,11 +56,11 @@ export default function PrijateljiDodaj() {
 
     try {
       await axios.post("http://127.0.0.1:8000/api/friends", noviPrijatelj);
+      // Dodajte novog prijatelja u kontekst
+      dodajPrijateljaHandler(noviPrijatelj);
     } catch (error) {
       console.error("There was an error!", error);
     }
-
-    dodajPrijateljaHandler(noviPrijatelj);
   }
 
   return (
@@ -105,6 +112,3 @@ export default function PrijateljiDodaj() {
     </form>
   );
 }
-
-
-
