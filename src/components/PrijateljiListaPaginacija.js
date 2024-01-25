@@ -2,14 +2,14 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Prijatelj from "./Prijatelj";
 import Dugme from "./Dugme";
-import SearchBar from "./SearchBar"; // Ensure this is correctly imported
+import SearchBar from "./SearchBar";
 import styles from "../components/PrijateljiListaPaginacija.module.css";
 
 const PrijateljiListaPaginacija = () => {
   const [prijatelji, setPrijatelji] = useState([]);
   const [trenutnaStranica, setTrenutnaStranica] = useState(1);
   const [ukupnoStranica, setUkupnoStranica] = useState(1);
-  const [search, setSearch] = useState(""); // State for search term
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     const dohvatiPrijateljePaginacija = async () => {
@@ -37,7 +37,7 @@ const PrijateljiListaPaginacija = () => {
 
   const handleSearchChange = (newSearchTerm) => {
     setSearch(newSearchTerm);
-    setTrenutnaStranica(1); // Reset the current page to 1 on new search
+    setTrenutnaStranica(1);
   };
 
   const goToPage = (pageNumber) => {
@@ -46,8 +46,7 @@ const PrijateljiListaPaginacija = () => {
 
   return (
     <div>
-      <SearchBar onSearch={handleSearchChange} />{" "}
-      {/* Updated the onSearch prop */}
+      <SearchBar onSearch={handleSearchChange} /> {}
       <div className={styles.main}>
         <ul>
           {prijatelji.map((prijatelj) => (

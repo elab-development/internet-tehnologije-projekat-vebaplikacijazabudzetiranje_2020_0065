@@ -3,7 +3,7 @@ import styles from "./GlavnaStrana.module.css";
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import NavigacioniBar from "../components/NavigacioniBar";
-import Dugme from "../components/Dugme"; // Uvezli smo Dugme komponentu
+import Dugme from "../components/Dugme";
 
 export default function GlavnaStrana() {
   const accessToken = window.sessionStorage.getItem("auth_token");
@@ -39,4 +39,3 @@ export default function GlavnaStrana() {
     </main>
   );
 }
-

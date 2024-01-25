@@ -11,10 +11,10 @@ function CategoryUsageChart() {
         const response = await axios.get(
           "http://127.0.0.1:8000/api/category-usage-chart-data"
         );
-        console.log("API data:", response.data); // Provera podataka iz API-ja
+        console.log("API data:", response.data);
         setChartData(response.data);
       } catch (error) {
-        console.error("Error fetching data:", error); // Provera grešaka
+        console.error("Error fetching data:", error);
       }
     };
 
@@ -31,12 +31,13 @@ function CategoryUsageChart() {
       {chartData.length > 0 ? (
         <Chart
           chartType="PieChart"
-          width="100%"
-          height="400px"
+          width="400px"
+          height="300px"
           data={formattedData}
           options={{
-            title: "Category Usage",
+            title: "Procentualna raspodela kategorija troškova",
             is3D: true,
+            backgroundColor: "transparent",
           }}
         />
       ) : (

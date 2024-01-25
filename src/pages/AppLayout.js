@@ -13,10 +13,8 @@ export default function AppLayout() {
   const { prijatelji, setPrijatelji, promenjeno, setPromenjeno } =
     usePrijatelji("http://127.0.0.1:8000/api/friends");
 
-  
   const userRole = window.sessionStorage.getItem("user_role");
 
-  
   const isAdmin = userRole === "admin";
 
   if (!prijatelji) {
@@ -59,10 +57,9 @@ export default function AppLayout() {
       <div className={styles.app}>
         <AppSidebar />
         <AppMainbar />
-       
+
         {isAdmin && (
           <section className={styles.corner}>
-            <h2>Procentualna raspodela korišćenja kategorija</h2>
             <CategoryUsageChart />
           </section>
         )}
@@ -70,5 +67,3 @@ export default function AppLayout() {
     </SelektovanPrijateljContext.Provider>
   );
 }
-
-

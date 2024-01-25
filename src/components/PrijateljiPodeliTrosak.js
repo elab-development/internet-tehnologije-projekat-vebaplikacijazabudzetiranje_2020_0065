@@ -67,7 +67,6 @@ function PrijateljiPodeliTrosak() {
     console.log("Category ID:", category_id);
     console.log("Transaction Date:", transaction_date);
 
-    // Provera validnosti
     if (
       !konvertovaniIznos.RSD ||
       !refund ||

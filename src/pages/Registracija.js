@@ -4,13 +4,13 @@ import React, { useState } from "react";
 import NavigacioniBar from "../components/NavigacioniBar";
 import Dugme from "../components/Dugme";
 import axios from "axios";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 export default function Registracija() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("admin"); // Početna vrednost "admin"
+  const [role, setRole] = useState("admin");
   const navigate = useNavigate();
 
   const handleInput = (e) => {
@@ -42,7 +42,7 @@ export default function Registracija() {
         console.log(response.data);
         const { role } = response.data;
 
-        window.sessionStorage.setItem("user_role", role); // Sačuvaj ulogu u sessionStorage
+        window.sessionStorage.setItem("user_role", role);
 
         navigate("/login");
       })
@@ -52,7 +52,10 @@ export default function Registracija() {
         } else if (error.request) {
           console.error("Server nije odgovorio.");
         } else {
-          console.error("Došlo je do greške prilikom slanja zahteva:", error.message);
+          console.error(
+            "Došlo je do greške prilikom slanja zahteva:",
+            error.message
+          );
         }
       });
   };
@@ -96,12 +99,7 @@ export default function Registracija() {
 
         <div className={styles.polje}>
           <label htmlFor="role">Uloga</label>
-          <select
-            id="role"
-            name="role"
-            onChange={handleInput}
-            value={role}
-          >
+          <select id="role" name="role" onChange={handleInput} value={role}>
             <option value="admin">admin</option>
             <option value="guest">guest</option>
             <option value="user">user</option>
@@ -113,9 +111,3 @@ export default function Registracija() {
     </main>
   );
 }
-
-
-
-
-
-

@@ -37,8 +37,8 @@ export default function AppSidebar() {
       <Logo type="appLogo" />
 
       <PrijateljiListaPaginacija
-        prijatelji={filteredPrijatelji}
-        velicinaStrane={velicinaStrane}
+      // prijatelji={filteredPrijatelji}
+      // velicinaStrane={velicinaStrane}
       />
       {userRole !== "guest" && otvoriFormu && <PrijateljiDodaj />}
       {userRole !== "guest" && (

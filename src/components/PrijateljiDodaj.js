@@ -17,7 +17,6 @@ export default function PrijateljiDodaj() {
 
   useEffect(() => {
     console.log("Prijatelji su ažurirani!", prijatelji);
-    // Osvježite lokalne podatke ili izvršite druge akcije po potrebi
   }, [prijatelji]);
 
   useEffect(() => {
@@ -56,7 +55,7 @@ export default function PrijateljiDodaj() {
 
     try {
       await axios.post("http://127.0.0.1:8000/api/friends", noviPrijatelj);
-      // Dodajte novog prijatelja u kontekst
+
       dodajPrijateljaHandler(noviPrijatelj);
     } catch (error) {
       console.error("There was an error!", error);

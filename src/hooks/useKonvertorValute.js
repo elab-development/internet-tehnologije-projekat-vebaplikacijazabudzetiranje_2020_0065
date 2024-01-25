@@ -4,11 +4,10 @@ import axios from "axios";
 function useKonvertorValute() {
   const [valute, setValute] = useState([]);
   const [izabranaValuta, setIzabranaValuta] = useState("");
-  const [iznos, setIznos] = useState(1);
+  const [iznos, setIznos] = useState("");
   const [konvertovaniIznos, setKonvertovaniIznos] = useState({});
-  const API_KEY = "8c878be87e7e8f06690a99e7"; // Zamenite sa svojim stvarnim API ključem
+  const API_KEY = "8c878be87e7e8f06690a99e7";
 
-  // Fetch the list of available currencies and their conversion rates
   useEffect(() => {
     axios
       .get(`https://v6.exchangerate-api.com/v6/${API_KEY}/latest/RSD`)
@@ -18,14 +17,13 @@ function useKonvertorValute() {
           const fetchedValute = Object.keys(data.conversion_rates);
           setValute(fetchedValute);
           if (fetchedValute.length > 0) {
-            setIzabranaValuta(fetchedValute[0]); // Set the default selected currency
+            setIzabranaValuta(fetchedValute[0]);
           }
         }
       })
       .catch((error) => console.error("Error loading currency list", error));
   }, []);
 
-  // Fetch the conversion rates for the selected currency
   useEffect(() => {
     if (izabranaValuta) {
       axios
